@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bake It!</title>
+</head>
+<body>
+    {% for recipe in recipes %}
+        <p>Recipe Name: </p>
+        {{recipe.recipe_name}}
+        <p>Recipe Category</p>
+        {{recipe.category_id}}
+    
+        <p>Skill Level:</p>
+        {{recipe.skill_level}}
+    {% endfor %}
+ 
+
+</body>
+</html>
