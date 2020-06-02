@@ -9,13 +9,15 @@
     {% for recipe in recipes %}
         <p>Recipe Name: </p>
         {{recipe.recipe_name}}
-        <p>Recipe Category</p>
-        {{recipe.category_id}}
-    
+        <p>Recipe Category:</p> 
+        {% for cat in cat_list %}
+            {% if cat['category_id'] == recipe.category_id %}
+                {{cat['category_name']}}
+            {% endif %}  
+        {% endfor %} 
         <p>Skill Level:</p>
         {{recipe.skill_level}}
     {% endfor %}
- 
 
 </body>
 </html>
