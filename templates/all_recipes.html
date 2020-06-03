@@ -7,16 +7,17 @@
 </head>
 <body>
     {% for recipe in recipes %}
-        <p>Recipe Name: </p>
-        {{recipe.recipe_name}}
-        <p>Recipe Category:</p> 
+    <div class="container">
+    <img src="{{recipe.image}}" alt="recipe_img" width="128" height="128">
+        <p>Recipe Name: {{recipe.recipe_name}}</p>
+        <p>Recipe Category:
         {% for cat in cat_list %}
             {% if cat['category_id'] == recipe.category_id %}
-                {{cat['category_name']}}
+                {{cat['category_name'].capitalize()}}
             {% endif %}  
-        {% endfor %} 
-        <p>Skill Level:</p>
-        {{recipe.skill_level}}
+        {% endfor %} </p> 
+        <p>Skill Level: {{recipe.skill_level}}</p>
+    </div>
     {% endfor %}
 
 </body>
