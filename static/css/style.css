@@ -1,19 +1,63 @@
 body {
-    background-color: teal;
+    background-image: url("../assets/images/gingham24mintgreen_shop_preview.png");
+}
+.row {
+    margin: 0;
+    padding: 0;
 }
 
+.add-rep-button {
+    margin: 10px auto;
+    margin-left: 30px;
+}
+.recipe-section {
+    margin-left: 10px;
+    margin-right: 10px;
+}
 .recipe-image {
-    border-radius: 10%;
+    background-color: #b2dfdb;
+    max-width: 96.5%;
+    max-height: 100%;
+    margin-left: 10px; 
+    margin-right: 10px;  
+    margin-top: 20px; 
 }
 
 .recipe-info {
-    background-color:coral;
+    background-color:#80cbc4;
+    margin-left: 10px;
+    margin-right: 5px; 
+    margin-top: 20px; 
+    padding: 10px; 
+  }
+
+.times {
+    display: inline-block;
+    padding: 10px;
+    margin-left: 20px;
+}
+
+.cat-skill {
+    display: inline-block;
+    padding: 10px;
+    margin-left: 20px;
+    
 }
 
 .ingredients {
-    background-color: pink;
-}
+    background-color: #b2dfdb;
+    margin-left: 10px;
+    margin-right: 5px; 
+    margin-top: 20px;
+    padding: 10px;
+  }
+
 
 .prep-steps {
-    background-color: orange;
-}
+    background-color:#b2dfdb;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 20px;
+    padding: 10px;
+  }
+

@@ -1,85 +1,85 @@
 {% extends 'base.html' %}
 {% block content %}
+<div class="row">
+    <a class="waves-effect waves-light btn-large add-rep-button"><i class="material-icons left">add</i>Add a recipe</a>
+</div>
+<div class="recipe-section">
     <div class="row">
-        <div class="col s12 m6">
-            <h1> {{recipe.recipe_name}}</h1>
+        <div class="col s12 m4">
+            <img class="recipe-image" src="{{recipe.image}}">
         </div>
-        <div class="col s6 m4 offset-2">
-            <a class="waves-effect waves-light btn-large add-rep-button"><i class="material-icons left">add</i>Add a
-                recipe</a>
-        </div>
-    </div>
-
-    <div class="row">
-        <img class="col s12 m4 recipe-image" src="{{recipe.image}}">
-
-        <div class="col s12 m8 recipe-info">
-            <h3>{{recipe.recipe_name}}</h3>
-            <h4>{{recipe.description}}</h4>
-            <div class="row">
-                <div class="col s6 m4">
-                    <div class="row">
-                        <h5>Prep Time: <strong>{{recipe.prep_time}} mins</strong></h5>
-                        
-                    </div>
-                    <div class="row">
-                        <h5>Cook Time: <strong>{{recipe.cook_time}} mins</strong></h5> 
-                    </div>
+        <div class="col s12 m8">
+            <div class="recipe-info">
+                <h3>{{recipe.recipe_name}}</h3>
+                <h4>{{recipe.description}}</h4>
+                <div class="times">
+                    <h5>Prep Time: <strong>{{recipe.prep_time}} mins</strong></h5>
+                    <h5>Cook Time: <strong>{{recipe.cook_time}} mins</strong></h5>
                 </div>
-                <div class="col s6 m4">
-                    <div class="row">
-                        <h5>Recipe Category:
-                            <strong>{% for cat in cat_list %}
+                <div class="cat-skill">
+                    <h5>Category:<strong>
+                            {% for cat in cat_list %}
                             {% if cat['category_id'] == recipe.category_id %}
                             {{cat['category_name'].capitalize()}}
                             {% endif %}
                             {% endfor %} </strong></h5>
-                    </div>
-                    <div class="row">
-                        <h5>Skill Level:
-                            {% if recipe.skill_level == 1 %}
-                            <i class="material-icons">radio_button_checked</i>
-                            <i class="material-icons">radio_button_unchecked</i>
-                            <i class="material-icons">radio_button_unchecked</i>
-                            <i class="material-icons">radio_button_unchecked</i>
-                            {% elif recipe.skill_level == 2 %}
-                            <i class="material-icons">radio_button_checked</i>
-                            <i class="material-icons">radio_button_checked</i>
-                            <i class="material-icons">radio_button_unchecked</i>
-                            <i class="material-icons">radio_button_unchecked</i>
-                            {% elif recipe.skill_level == 3 %}
-                            <i class="material-icons">radio_button_checked</i>
-                            <i class="material-icons">radio_button_checked</i>
-                            <i class="material-icons">radio_button_checked</i>
-                            <i class="material-icons">radio_button_unchecked</i>
-                            {% elif recipe.skill_level == 4 %}
-                            <i class="material-icons">radio_button_checked</i>
-                            <i class="material-icons">radio_button_checked</i>
-                            <i class="material-icons">radio_button_checked</i>
-                            <i class="material-icons">radio_button_checked</i>
-                            {% endif %}
-                        </h5>
-                    </div>
+
+                    <h5>Skill:
+                        {% if recipe.skill_level == 1 %}
+                        <i class="material-icons">radio_button_checked</i>
+                        <i class="material-icons">radio_button_unchecked</i>
+                        <i class="material-icons">radio_button_unchecked</i>
+                        <i class="material-icons">radio_button_unchecked</i>
+                        {% elif recipe.skill_level == 2 %}
+                        <i class="material-icons">radio_button_checked</i>
+                        <i class="material-icons">radio_button_checked</i>
+                        <i class="material-icons">radio_button_unchecked</i>
+                        <i class="material-icons">radio_button_unchecked</i>
+                        {% elif recipe.skill_level == 3 %}
+                        <i class="material-icons">radio_button_checked</i>
+                        <i class="material-icons">radio_button_checked</i>
+                        <i class="material-icons">radio_button_checked</i>
+                        <i class="material-icons">radio_button_unchecked</i>
+                        {% elif recipe.skill_level == 4 %}
+                        <i class="material-icons">radio_button_checked</i>
+                        <i class="material-icons">radio_button_checked</i>
+                        <i class="material-icons">radio_button_checked</i>
+                        <i class="material-icons">radio_button_checked</i>
+                        {% endif %}
+                    </h5>
                 </div>
             </div>
         </div>
     </div>
+
     <div class="row">
-        <div class="col s12 m4 ingredients">
-            <h3>Ingredients:</h3>
-            <p>{{ingredients}}</p>
-
+        <div class="col s12 m4">
+            <div class="ingredients">
+                <h3>Ingredients:</h3>
+                <ul>
+                    {% for ingredient in recipe.ingredients%}
+                    <li>{{ingredient}}</li>
+                    {% endfor %}
+                </ul>
+                
+            </div>
 
         </div>
-        <div class="col s12 m8 prep-steps">
-            <h3>Preparation Steps:</h3>
-            <p>{{preparation_steps}}</p>
-
+        <div class="col s12 m8">
+            <div class="prep-steps">
+                <h3>Preparation Steps:</h3>
+                <p>{{preparation_steps}}</p>
+                <ul>
+                    {% for preparation_step in recipe.preparation_steps%}
+                    <li>{{preparation_step}}</li>
+                    {% endfor %}
+                </ul>
+            </div>
 
         </div>
     </div>
-    <div class="row ">
-        <a href="{{url_for('get_recipes')}}"><strong>All Recipes</strong></a>
-    </div>
+</div>
+<div class="row ">
+    <a href="{{url_for('get_recipes')}}"><strong>All Recipes</strong></a>
+</div>
 {% endblock %}
-
