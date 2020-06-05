@@ -1,68 +1,85 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}" type="text/css" />
-    <title>Bake It!</title>
-</head>
-
-<body>
+{% extends 'base.html' %}
+{% block content %}
     <div class="row">
-        <h1 class="head"> {{recipe.recipe_name}}</h1>
-        <a class="waves-effect waves-light btn-large"><i class="material-icons left">add</i>Add a recipe</a>
+        <div class="col s12 m6">
+            <h1> {{recipe.recipe_name}}</h1>
+        </div>
+        <div class="col s6 m4 offset-2">
+            <a class="waves-effect waves-light btn-large add-rep-button"><i class="material-icons left">add</i>Add a
+                recipe</a>
+        </div>
     </div>
 
     <div class="row">
-        <div class="col s12 m4">
-            <div class="card medium">
-                <div class="card-image">
-                    <img src="{{recipe.image}}">
-                    <span class="card-title">{{recipe['recipe_name']}}</span>
+        <img class="col s12 m4 recipe-image" src="{{recipe.image}}">
+
+        <div class="col s12 m8 recipe-info">
+            <h3>{{recipe.recipe_name}}</h3>
+            <h4>{{recipe.description}}</h4>
+            <div class="row">
+                <div class="col s6 m4">
+                    <div class="row">
+                        <h5>Prep Time: <strong>{{recipe.prep_time}} mins</strong></h5>
+                        
+                    </div>
+                    <div class="row">
+                        <h5>Cook Time: <strong>{{recipe.cook_time}} mins</strong></h5> 
+                    </div>
                 </div>
-                <div class="card-content">
-                    <p>Recipe Category:
-                        {{recipe['category_id']}}
-                        {% for cat in cat_list %}
-                        {% if cat['category_id'] == recipe.category_id %}
-                        {{cat['category_name'].capitalize()}}
-                        {% endif %}
-                        {% endfor %} </p>
-                    <p>Skill Level:
-                        {% if recipe.skill_level == 1 %}
-                        <i class="material-icons">radio_button_checked</i>
-                        <i class="material-icons">radio_button_unchecked</i>
-                        <i class="material-icons">radio_button_unchecked</i>
-                        <i class="material-icons">radio_button_unchecked</i>
-                        {% elif recipe.skill_level == 2 %}
-                        <i class="material-icons">radio_button_checked</i>
-                        <i class="material-icons">radio_button_checked</i>
-                        <i class="material-icons">radio_button_unchecked</i>
-                        <i class="material-icons">radio_button_unchecked</i>
-                        {% elif recipe.skill_level == 3 %}
-                        <i class="material-icons">radio_button_checked</i>
-                        <i class="material-icons">radio_button_checked</i>
-                        <i class="material-icons">radio_button_checked</i>
-                        <i class="material-icons">radio_button_unchecked</i>
-                        {% elif recipe.skill_level == 4 %}
-                        <i class="material-icons">radio_button_checked</i>
-                        <i class="material-icons">radio_button_checked</i>
-                        <i class="material-icons">radio_button_checked</i>
-                        <i class="material-icons">radio_button_checked</i>
-                        {% endif %}
-                    </p>
-                </div>
-                <div class="card-action">
-                    <a href="{{url_for('get_recipes')}}"><strong>All Recipes</strong></a>
+                <div class="col s6 m4">
+                    <div class="row">
+                        <h5>Recipe Category:
+                            <strong>{% for cat in cat_list %}
+                            {% if cat['category_id'] == recipe.category_id %}
+                            {{cat['category_name'].capitalize()}}
+                            {% endif %}
+                            {% endfor %} </strong></h5>
+                    </div>
+                    <div class="row">
+                        <h5>Skill Level:
+                            {% if recipe.skill_level == 1 %}
+                            <i class="material-icons">radio_button_checked</i>
+                            <i class="material-icons">radio_button_unchecked</i>
+                            <i class="material-icons">radio_button_unchecked</i>
+                            <i class="material-icons">radio_button_unchecked</i>
+                            {% elif recipe.skill_level == 2 %}
+                            <i class="material-icons">radio_button_checked</i>
+                            <i class="material-icons">radio_button_checked</i>
+                            <i class="material-icons">radio_button_unchecked</i>
+                            <i class="material-icons">radio_button_unchecked</i>
+                            {% elif recipe.skill_level == 3 %}
+                            <i class="material-icons">radio_button_checked</i>
+                            <i class="material-icons">radio_button_checked</i>
+                            <i class="material-icons">radio_button_checked</i>
+                            <i class="material-icons">radio_button_unchecked</i>
+                            {% elif recipe.skill_level == 4 %}
+                            <i class="material-icons">radio_button_checked</i>
+                            <i class="material-icons">radio_button_checked</i>
+                            <i class="material-icons">radio_button_checked</i>
+                            <i class="material-icons">radio_button_checked</i>
+                            {% endif %}
+                        </h5>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="row">
+        <div class="col s12 m4 ingredients">
+            <h3>Ingredients:</h3>
+            <p>{{ingredients}}</p>
 
-        <!-- Compiled and minified JavaScript -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-</body>
 
-</html>
+        </div>
+        <div class="col s12 m8 prep-steps">
+            <h3>Preparation Steps:</h3>
+            <p>{{preparation_steps}}</p>
+
+
+        </div>
+    </div>
+    <div class="row ">
+        <a href="{{url_for('get_recipes')}}"><strong>All Recipes</strong></a>
+    </div>
+{% endblock %}
+

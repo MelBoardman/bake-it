@@ -1,6 +1,19 @@
 body {
-    background: teal;
+    background-color: teal;
 }
-.head {
-    margin: 0 auto;
+
+.recipe-image {
+    border-radius: 10%;
+}
+
+.recipe-info {
+    background-color:coral;
+}
+
+.ingredients {
+    background-color: pink;
+}
+
+.prep-steps {
+    background-color: orange;
 }
