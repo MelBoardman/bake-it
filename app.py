@@ -18,6 +18,12 @@ mongo = PyMongo(app)
 def get_recipes():
     return render_template("all_recipes.html", cat_list = list(mongo.db.recipe_category.find()), recipes=mongo.db.recipes.find())
 
+@app.route("/display_recipe/<recipe_id>")
+def display_recipe(recipe_id):
+  the_recipe = mongo.db.recipe.find_one({"_id": ObjectId(recipe_id)})
+  cat_list = list(mongo.db.recipe_category.find())
+  return render_template("recipe.html", recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)}))
+
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=os.environ.get('PORT'),

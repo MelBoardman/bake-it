@@ -6,11 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}" type="text/css"/>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}" type="text/css" />
     <title>Bake It!</title>
 </head>
 
 <body>
+    <div class="row">
+        <h1 class="head">All Recipes</h1>
+        <a class="waves-effect waves-light btn-large"><i class="material-icons left">add</i>Add a recipe</a>
+    </div>
+
     {% for recipe in recipes %}
     <div class="row">
         <div class="col s12 m4">
@@ -26,32 +31,33 @@
                         {{cat['category_name'].capitalize()}}
                         {% endif %}
                         {% endfor %} </p>
-                    <p>Skill Level: 
+                    <p>Skill Level:
                         {% if recipe.skill_level == 1 %}
-                            <i class="material-icons">radio_button_checked</i>
-                            <i class="material-icons">radio_button_unchecked</i>
-                            <i class="material-icons">radio_button_unchecked</i>
-                            <i class="material-icons">radio_button_unchecked</i>
+                        <i class="material-icons">radio_button_checked</i>
+                        <i class="material-icons">radio_button_unchecked</i>
+                        <i class="material-icons">radio_button_unchecked</i>
+                        <i class="material-icons">radio_button_unchecked</i>
                         {% elif recipe.skill_level == 2 %}
-                            <i class="material-icons">radio_button_checked</i>
-                            <i class="material-icons">radio_button_checked</i>
-                            <i class="material-icons">radio_button_unchecked</i>
-                            <i class="material-icons">radio_button_unchecked</i>
+                        <i class="material-icons">radio_button_checked</i>
+                        <i class="material-icons">radio_button_checked</i>
+                        <i class="material-icons">radio_button_unchecked</i>
+                        <i class="material-icons">radio_button_unchecked</i>
                         {% elif recipe.skill_level == 3 %}
-                            <i class="material-icons">radio_button_checked</i>
-                            <i class="material-icons">radio_button_checked</i>
-                            <i class="material-icons">radio_button_checked</i>
-                            <i class="material-icons">radio_button_unchecked</i>
+                        <i class="material-icons">radio_button_checked</i>
+                        <i class="material-icons">radio_button_checked</i>
+                        <i class="material-icons">radio_button_checked</i>
+                        <i class="material-icons">radio_button_unchecked</i>
                         {% elif recipe.skill_level == 4 %}
-                            <i class="material-icons">radio_button_checked</i>
-                            <i class="material-icons">radio_button_checked</i>
-                            <i class="material-icons">radio_button_checked</i>
-                            <i class="material-icons">radio_button_checked</i>
+                        <i class="material-icons">radio_button_checked</i>
+                        <i class="material-icons">radio_button_checked</i>
+                        <i class="material-icons">radio_button_checked</i>
+                        <i class="material-icons">radio_button_checked</i>
                         {% endif %}
                     </p>
                 </div>
+                {{recipe._id}}
                 <div class="card-action">
-                    <a href="#">Bake It!</a>
+                    <a href="{{url_for('display_recipe', recipe_id=recipe._id)}}"><strong>Bake It!</strong></a>
                 </div>
             </div>
         </div>
