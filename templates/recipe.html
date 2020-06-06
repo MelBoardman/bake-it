@@ -4,12 +4,12 @@
     <a class="waves-effect waves-light btn-large add-rep-button"><i class="material-icons left">add</i>Add a recipe</a>
 </div>
 <div class="recipe-section">
-    <div class="row">
+    <div class="row flex-container">
         <div class="col s12 m4">
-            <img class="recipe-image" src="{{recipe.image}}">
+            <img class="recipe-image align" src="{{recipe.image}}">
         </div>
         <div class="col s12 m8">
-            <div class="recipe-info">
+            <div class="recipe-info align">
                 <h3>{{recipe.recipe_name}}</h3>
                 <h4>{{recipe.description}}</h4>
                 <div class="times">
@@ -54,24 +54,28 @@
 
     <div class="row">
         <div class="col s12 m4">
-            <div class="ingredients">
+            <div class="ingredients align">
                 <h3>Ingredients:</h3>
-                <ul>
+                <ul class = "browser-default">
                     {% for ingredient in recipe.ingredients%}
+                    <p>
                     <li>{{ingredient}}</li>
+                    </p>
                     {% endfor %}
                 </ul>
-                
+
             </div>
 
         </div>
         <div class="col s12 m8">
-            <div class="prep-steps">
+            <div class="prep-steps align">
                 <h3>Preparation Steps:</h3>
                 <p>{{preparation_steps}}</p>
-                <ul>
+                <ul class = "browser-default">
                     {% for preparation_step in recipe.preparation_steps%}
+                    <p>
                     <li>{{preparation_step}}</li>
+                    </p>
                     {% endfor %}
                 </ul>
             </div>
