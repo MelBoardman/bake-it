@@ -83,6 +83,23 @@
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="display-ad">
+        {% for cat in cat_list %}
+        {% if cat['category_id'] == recipe.category_id %}
+
+         <img src="{{cat['ad_links'][0]}}">
+         <p>
+            <a href="{{cat['ad_links'][1]}}">See more here</a>
+         </p>
+         <p>
+            {{cat['ad_links'][2]}}  
+         </p>
+        {% endif %}
+        {% endfor %}
+        
+    </div>
+</div>
 <div class="row ">
     <a href="{{url_for('get_recipes')}}"><strong>All Recipes</strong></a>
 </div>
