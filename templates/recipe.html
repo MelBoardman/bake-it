@@ -56,10 +56,10 @@
         <div class="col s12 m4">
             <div class="ingredients align">
                 <h3>Ingredients:</h3>
-                <ul class = "browser-default">
+                <ul class="browser-default">
                     {% for ingredient in recipe.ingredients%}
                     <p>
-                    <li>{{ingredient}}</li>
+                        <li>{{ingredient}}</li>
                     </p>
                     {% endfor %}
                 </ul>
@@ -71,10 +71,10 @@
             <div class="prep-steps align">
                 <h3>Preparation Steps:</h3>
                 <p>{{preparation_steps}}</p>
-                <ul class = "browser-default">
+                <ul class="browser-default">
                     {% for preparation_step in recipe.preparation_steps%}
                     <p>
-                    <li>{{preparation_step}}</li>
+                        <li>{{preparation_step}}</li>
                     </p>
                     {% endfor %}
                 </ul>
@@ -87,17 +87,14 @@
     <div class="display-ad">
         {% for cat in cat_list %}
         {% if cat['category_id'] == recipe.category_id %}
-
-         <img src="{{cat['ad_links'][0]}}">
-         <p>
-            <a href="{{cat['ad_links'][1]}}">See more here</a>
-         </p>
-         <p>
-            {{cat['ad_links'][2]}}  
-         </p>
+        <h4>Recommended for this Bake: <strong>{{cat['ad_links'][0]}}</strong></h4>
+        <p>
+            {{cat['ad_links'][3]}}
+            <a href="{{cat['ad_links'][2]}}">See more here</a>
+        </p>
+        <img src="{{cat['ad_links'][1]}}">
         {% endif %}
         {% endfor %}
-        
     </div>
 </div>
 <div class="row ">

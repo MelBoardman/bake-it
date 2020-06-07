@@ -66,4 +66,10 @@ body {
     margin-bottom: -100%;
 }
 
-
+.display-ad {
+    background-color:#80cbc4;
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-top: 20px;
+    padding: 10px;
+}

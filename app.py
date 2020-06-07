@@ -12,15 +12,18 @@ app.config["MONGO_DBNAME"] = 'bake-it'
 app.config["MONGO_URI"] = os.getenv('MONGO_URI','mongodb://localhost')
 
 mongo = PyMongo(app)
-
+ 
 @app.route("/")
+@app.route("/home")
+def home():
+  return render_template("index.html")
+
 @app.route("/get_recipes")
 def get_recipes():
     return render_template("all_recipes.html", cat_list = list(mongo.db.recipe_category.find()), recipes=mongo.db.recipes.find())
 
 @app.route("/display_recipe/<recipe_id>")
 def display_recipe(recipe_id):
-  
   return render_template("recipe.html", cat_list = list(mongo.db.recipe_category.find()),recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)}))
 
 if __name__ == '__main__':
