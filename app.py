@@ -18,6 +18,10 @@ mongo = PyMongo(app)
 def home():
   return render_template("index.html")
 
+@app.route("/log_in")
+def log_in():
+  return render_template("log_in.html")
+
 @app.route("/get_recipes")
 def get_recipes():
     return render_template("all_recipes.html", cat_list = list(mongo.db.recipe_category.find()), recipes=mongo.db.recipes.find())
