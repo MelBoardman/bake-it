@@ -21,7 +21,7 @@ def home():
         return 'You are logged in as ' + session['username']
   return render_template("index.html")
 
-@app.route("/log_in", methods=['POST', 'GET'])
+@app.route("/log_in")
 def log_in():
   return render_template("log_in.html")
 
@@ -34,7 +34,7 @@ def log_on():
     if bcrypt.hashpw(request.form['password'].encode('utf-8'), login_member['password'].encode('utf-8')) == login_member['password'].encode('utf-8'):
       # set session user id
       session['username'] = request.form['username']
-    return redirect(url_for('my_recipes', username =session['username'])) 
+      return redirect(url_for('my_recipes', username =session['username'])) 
 
   return 'Invalid username/password combination'
 
