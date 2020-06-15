@@ -18,7 +18,7 @@ mongo = PyMongo(app)
 @app.route("/home")
 def home():
   if 'username' in session:
-        return 'You are logged in as ' + session['username']
+        return render_template("index.html", logged_in = True, message ='You are logged in as ' + session['username'])
   return render_template("index.html")
 
 @app.route("/log_in")
@@ -35,8 +35,12 @@ def log_on():
       # set session user id
       session['username'] = request.form['username']
       return redirect(url_for('my_recipes', username =session['username'])) 
+    
+  return render_template("log_in.html", log_on_fail = True, message = 'Invalid username/password combination')
 
-  return 'Invalid username/password combination'
+@app.route("/signup")
+def signup():
+  return render_template("sign_up.html")
 
 # sign up page used to register new member
 @app.route("/sign_up", methods=['POST', 'GET'])
@@ -52,13 +56,11 @@ def sign_up():
             # make password a string in mongo
             hashpass = str(hashpass, encoding='utf-8', errors='strict')
             # add new member to mongodb
-            members.insert({'username' : request.form['username'], 'password' : hashpass, 'member_type' :'admin'})
+            members.insert({'username' : request.form['username'], 'password' : hashpass, 'member_type' :'member'})
             # set session user id
             session['username'] = request.form['username']
             return redirect(url_for('my_recipes', username =session['username'])) 
-        
-        return 'That username already exists!' 
-  return render_template("sign_up.html")
+  return render_template("sign_up.html", username_fail = True, message = "That username already exists!")
 
 @app.route("/my_recipes/<username>")
 def my_recipes(username):
