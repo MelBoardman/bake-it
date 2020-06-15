@@ -23,29 +23,39 @@ def home():
 
 @app.route("/log_in", methods=['POST', 'GET'])
 def log_in():
+  return render_template("log_in.html")
+
+@app.route("/log_on", methods=['POST', 'GET'])
+def log_on():
   members = mongo.db.members
   login_member = members.find_one({'username' : request.form['username']})
   if login_member:
+
     if bcrypt.hashpw(request.form['password'].encode('utf-8'), login_member['password'].encode('utf-8')) == login_member['password'].encode('utf-8'):
+      # set session user id
       session['username'] = request.form['username']
     return redirect(url_for('my_recipes', username =session['username'])) 
 
   return 'Invalid username/password combination'
 
-
+# sign up page used to register new member
 @app.route("/sign_up", methods=['POST', 'GET'])
 def sign_up():
-
+  # first check to see if username already exists
   if request.method == 'POST':
         members = mongo.db.members
         existing_member = members.find_one({'username' : request.form['username']})
 
         if existing_member is None:
+            # encrypt password
             hashpass = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
+            # make password a string in mongo
             hashpass = str(hashpass, encoding='utf-8', errors='strict')
+            # add new member to mongodb
             members.insert({'username' : request.form['username'], 'password' : hashpass, 'member_type' :'admin'})
+            # set session user id
             session['username'] = request.form['username']
-            return redirect(url_for('home'))
+            return redirect(url_for('my_recipes', username =session['username'])) 
         
         return 'That username already exists!' 
   return render_template("sign_up.html")

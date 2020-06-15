@@ -2,7 +2,26 @@
 {% block content %}
 
 
-   
+<form  method=POST action ="{{url_for('log_on')}}" class = "col s12">
+    <div class="row">
+        <div class="input-field col s6">
+            <i class="material-icons prefix">account_circle</i>
+            <input placeholder="username" name="username" type="text" class="validate">
+            <label for="username">Username</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s6">
+            <i class="material-icons prefix">account_circle</i>
+            <input placeholder="password" name="password" type="password" class="validate">
+            <label for="password">Password</label>
+        </div>
+    </div>
+    <div class="row">
+        <button class="btn waves-effect waves-light" type="submit" name="action">Log in
+            <i class="material-icons right">send</i>
+        </button>
+    </div>
 </form>
 <br>
 <div>
