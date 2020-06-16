@@ -74,6 +74,16 @@ def get_recipes():
 def display_recipe(recipe_id):
   return render_template("recipe.html", cat_list = list(mongo.db.recipe_category.find()),recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)}))
 
+@app.route("/add_recipe")
+def add_recipe():
+  return render_template("add_recipe.html", categories = mongo.db.recipe_category.find(), dietary_reqs = mongo.db.dietary_req.find())
+
+@app.route("/insert_recipe")
+def insert_recipe():
+    recipes = mongo.db.recipes
+    recipes.insert_one(request.form.to_dict())
+    return redirect(url_for('get_recipes'))
+
 if __name__ == '__main__':
     app.secret_key = 'mysecret'
     app.run(host=os.environ.get('IP'),
