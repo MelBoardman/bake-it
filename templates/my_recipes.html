@@ -2,7 +2,7 @@
 {% block content %}
     <div class="row">
         <h1 class="head">My Recipes</h1>
-        <a class="waves-effect waves-light btn-large"><i class="material-icons left">add</i>Add a recipe</a>
+        <a class="waves-effect waves-light btn-large" href="{{url_for('add_recipe')}}"><i class="material-icons left">add</i>Add a recipe</a>
     </div>
 
     {% for recipe in recipes %}
