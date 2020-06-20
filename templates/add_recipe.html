@@ -1,42 +1,70 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<form action="{{ url_for('insert_recipe') }}" method="POST"  class="col s12">
-    <div class="row">
-      <div class="input-field col s12">
-        <i class="material-icons prefix">assignment</i>
-        <input id="recipe_name" name="recipe_name" type="text" class="validate" />
-        <label for="icon_prefix">Recipe Name</label>
-      </div>
+<form action="{{ url_for('insert_recipe') }}" method="POST" class="col s12">
+  <!-- recipe name -->
+  <div class="row">
+    <div class="input-field col s12">
+      <i class="material-icons prefix">assignment</i>
+      <input id="recipe_name" name="recipe_name" type="text" class="validate" />
+      <label for="icon_prefix">Recipe Name</label>
     </div>
-        <div class="row">
-          <div class="input-field col s12">
-            <textarea id="recipe_description" class="materialize-textarea"></textarea>
-            <label for="recipe_description">Description</label>
-          </div>
+  </div>
+  <!-- recipe description -->
+  <div class="row">
+    <div class="input-field col s12">
+      <textarea id="recipe_description" class="materialize-textarea" name="recipe_description"></textarea>
+      <label for="recipe_description">Description</label>
     </div>
+  </div>
+  <!-- prep time -->
+  <!-- cook time -->
+  <!-- category -->
 
-    <div class="row">
-      <div class="input-field col s12" id="matfix">
-        <i class="material-icons prefix">today</i>
-        <input id="due_date" name="due_date" type="text" class="datepicker" />
-        <label for="icon_prefix">Due Date</label>
-      </div>
+  {{categories}}
+  <div class="row">
+    <div class="input-field col s12">
+      <i class="material-icons prefix">poll</i>
+      <select id="category" name="category_name">
+        <option value="" disabled selected>Choose Category</option>
+        {% for cat in categories %}
+          {{cat}}
+        <option value="{{cat.category_name}}">{{cat.category_name}}</option>
+        {% endfor %}
+      </select>
+      <label>Task Category</label>
     </div>
-    <div id="dynamicInput">
-      Entry 1<br><input type="text" name="myInputs[]">
- </div>
- <input type="button" value="Add another text input" onClick="addInput('dynamicInput');">
+  </div>
+  <!-- skill level -->
+  <!-- ingredients -->
+  <div id="dynamicIngredients">
+    Ingredient 1<br><input type="text" name="myIngredients[]">
+  </div>
+  <input type="button" value="Add another Ingredient" onClick="addIngredients('dynamicIngredients');">
+  <!-- prep steps -->
+  <div id="dynamicPrepSteps">
+    Preparation Step 1<br><input type="text" name="myPrepSteps[]">
+  </div>
+  <input type="button" value="Add another preparation step" onClick="addPrepSteps('dynamicPrepSteps');">
+  <!-- add image link -->
+  <div class="row">
+    <div class="input-field col s12">
+      <textarea id="recipe_image" class="materialize-textarea" name="recipe_image"></textarea>
+      <label for="recipe_image">Add link to recipe image</label>
+    </div>
+  </div>
+  <!-- add recipe button -->
+  <div class="row">
+    <button class="btn waves-effect waves-light" type="submit" name="action">
+      Add Recipe
+      <i class="material-icons right">send</i>
+    </button>
 
-    <div class="row">
-      <button class="btn waves-effect waves-light" type="submit" name="action">
-        Add Recipe
-        <i class="material-icons right">send</i>
-      </button>
-    </div>
-  </form>
+  </div>
+</form>
+
 </div>
-<script src= "static\js\main.js"></script>
+<script src="static\js\main.js"></script>
 
 
 {% endblock %}

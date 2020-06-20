@@ -1,15 +1,29 @@
 
 // Taken from http://www.randomsnippets.com/2008/02/21/how-to-dynamically-add-form-elements-via-javascript/
-var counter = 1;
-var limit = 3;
-function addInput(divName){
-     if (counter == limit)  {
-          alert("You have reached the limit of adding " + counter + " inputs");
+var ingredientCounter = 1;
+var ingredientLimit = 20;
+function addIngredients(divName){
+     if (ingredientCounter == ingredientLimit)  {
+          alert("You have reached the limit of adding " + ingredientCounter + " ingredients");
      }
      else {
           var newdiv = document.createElement('div');
-          newdiv.innerHTML = "Entry " + (counter + 1) + " <br><input type='text' name='myInputs[]'>";
+          newdiv.innerHTML = "Ingredient " + (ingredientCounter + 1) + " <br><input type='text' name='myIngredients[]'>";
           document.getElementById(divName).appendChild(newdiv);
-          counter++;
+          ingredientCounter++;
+     }
+}
+
+var prepCounter = 1;
+var prepLimit = 20;
+function addPrepSteps(divName){
+     if (prepCounter == prepLimit)  {
+          alert("You have reached the limit of adding " + prepCounter + " preparation steps");
+     }
+     else {
+          var newdiv = document.createElement('div');
+          newdiv.innerHTML = "Preparation Step " + (prepCounter + 1) + " <br><input type='text' name='myPrepSteps[]'>";
+          document.getElementById(divName).appendChild(newdiv);
+          ingredientCounter++;
      }
 }
