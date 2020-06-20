@@ -1,4 +1,8 @@
-
+// Initialization of select category section - taken from Materialize
+document.addEventListener('DOMContentLoaded', function() {
+     var elems = document.querySelectorAll('select');
+     var instances = M.FormSelect.init(elems, options);
+   });
 // Taken from http://www.randomsnippets.com/2008/02/21/how-to-dynamically-add-form-elements-via-javascript/
 var ingredientCounter = 1;
 var ingredientLimit = 20;
@@ -27,3 +31,4 @@ function addPrepSteps(divName){
           ingredientCounter++;
      }
 }
+

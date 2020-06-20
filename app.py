@@ -86,7 +86,7 @@ def insert_recipe():
         'recipe_name': request.form.get('recipe_name'),
         'added_by': session['username'],
         'description': request.form.get('recipe_description'),
-        # 'category_id': cat_id,
+        'category_id': request.form.get('category_name'),
         # 'prep_time': request.form.get('prep_time'),
         # 'cook_time': request.form.get('cook_time'),
         'ingredients': request.form.getlist('myIngredients[]'),

@@ -10,6 +10,7 @@
       <label for="icon_prefix">Recipe Name</label>
     </div>
   </div>
+  <hr>
   <!-- recipe description -->
   <div class="row">
     <div class="input-field col s12">
@@ -17,26 +18,30 @@
       <label for="recipe_description">Description</label>
     </div>
   </div>
+  <hr>
   <!-- prep time -->
+  <hr>
   <!-- cook time -->
-  <!-- category -->
 
-  {{categories}}
+  <hr>
+  <!-- category -->
   <div class="row">
     <div class="input-field col s12">
       <i class="material-icons prefix">poll</i>
       <select id="category" name="category_name">
-        <option value="" disabled selected>Choose Category</option>
+        <option value="" disabled selected>Choose your option</option>
         {% for cat in categories %}
-          {{cat}}
         <option value="{{cat.category_name}}">{{cat.category_name}}</option>
         {% endfor %}
       </select>
-      <label>Task Category</label>
+      <label>Recipe Category</label>
     </div>
   </div>
+  <hr>
   <!-- skill level -->
+  <hr>
   <!-- ingredients -->
+  
   <div id="dynamicIngredients">
     Ingredient 1<br><input type="text" name="myIngredients[]">
   </div>
@@ -53,13 +58,13 @@
       <label for="recipe_image">Add link to recipe image</label>
     </div>
   </div>
+  <hr>
   <!-- add recipe button -->
   <div class="row">
     <button class="btn waves-effect waves-light" type="submit" name="action">
       Add Recipe
       <i class="material-icons right">send</i>
     </button>
-
   </div>
 </form>
 
