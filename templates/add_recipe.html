@@ -1,75 +1,83 @@
 {% extends 'base.html' %}
 {% block content %}
+<div class="container">
+  <form action="{{ url_for('insert_recipe') }}" method="POST" class="col s12 add-recipe">
+    <!-- recipe name -->
+    <div class="row">
+      <div class="input-field col s12">
+        <i class="material-icons prefix">assignment</i>
+        <input id="recipe_name" name="recipe_name" type="text" class="validate" />
+        <label for="icon_prefix">Recipe Name</label>
+      </div>
+    </div>
+    <hr>
+    <!-- recipe description -->
+    <div class="row">
+      <div class="input-field col s12">
+        <textarea id="recipe_description" class="materialize-textarea" name="recipe_description"></textarea>
+        <label for="recipe_description">Description</label>
+      </div>
+    </div>
+    <hr>
+    <!-- prep time -->
+    <hr>
+    <!-- cook time -->
 
-<form action="{{ url_for('insert_recipe') }}" method="POST" class="col s12">
-  <!-- recipe name -->
-  <div class="row">
-    <div class="input-field col s12">
-      <i class="material-icons prefix">assignment</i>
-      <input id="recipe_name" name="recipe_name" type="text" class="validate" />
-      <label for="icon_prefix">Recipe Name</label>
-    </div>
-  </div>
-  <hr>
-  <!-- recipe description -->
-  <div class="row">
-    <div class="input-field col s12">
-      <textarea id="recipe_description" class="materialize-textarea" name="recipe_description"></textarea>
-      <label for="recipe_description">Description</label>
-    </div>
-  </div>
-  <hr>
-  <!-- prep time -->
-  <hr>
-  <!-- cook time -->
+    <hr>
+    <!-- category -->
 
-  <hr>
-  <!-- category -->
-  <div class="row">
-    <div class="input-field col s12">
-      <i class="material-icons prefix">poll</i>
-      <select id="category" name="category_name">
-        <option value="" disabled selected>Choose your option</option>
-        {% for cat in categories %}
-        <option value="{{cat.category_name}}">{{cat.category_name}}</option>
-        {% endfor %}
-      </select>
-      <label>Recipe Category</label>
+    <div class="row">
+      <div class="input-field col s12">
+        <i class="material-icons prefix">poll</i>
+        <select size = "3" id="category" name="category_name">
+          <option  value="" disabled selected>Choose your option</option>
+          {% for cat in categories %}
+          <option value="{{cat.category_id}}">{{cat.category_name}}</option>
+          {% endfor %}
+        </select>
+        <label>Recipe Category</label>
+      </div>
     </div>
-  </div>
-  <hr>
-  <!-- skill level -->
-  <hr>
-  <!-- ingredients -->
-  
-  <div id="dynamicIngredients">
-    Ingredient 1<br><input type="text" name="myIngredients[]">
-  </div>
-  <input type="button" value="Add another Ingredient" onClick="addIngredients('dynamicIngredients');">
-  <!-- prep steps -->
-  <div id="dynamicPrepSteps">
-    Preparation Step 1<br><input type="text" name="myPrepSteps[]">
-  </div>
-  <input type="button" value="Add another preparation step" onClick="addPrepSteps('dynamicPrepSteps');">
-  <!-- add image link -->
-  <div class="row">
-    <div class="input-field col s12">
-      <textarea id="recipe_image" class="materialize-textarea" name="recipe_image"></textarea>
-      <label for="recipe_image">Add link to recipe image</label>
-    </div>
-  </div>
-  <hr>
-  <!-- add recipe button -->
-  <div class="row">
-    <button class="btn waves-effect waves-light" type="submit" name="action">
-      Add Recipe
-      <i class="material-icons right">send</i>
-    </button>
-  </div>
-</form>
+    <hr>
+    <h5> Select skill level:</h5>
+    <!-- skill level -->
+    <i id = "skill_1" class="material-icons">radio_button_unchecked</i>
+    <i id = "skill_2" class="material-icons">radio_button_unchecked</i>
+    <i id = "skill_3" class="material-icons">radio_button_unchecked</i>
+    <i id = "skill_4" class="material-icons">radio_button_unchecked</i>
+    <hr>
 
+    <!-- ingredients -->
+
+    <div id="dynamicIngredients">
+      Ingredient 1<br><input type="text" name="myIngredients[]">
+    </div>
+    <input type="button" value="Add another Ingredient" onClick="addIngredients('dynamicIngredients');">
+    <!-- prep steps -->
+    <div id="dynamicPrepSteps">
+      Preparation Step 1<br><input type="text" name="myPrepSteps[]">
+    </div>
+    <input type="button" value="Add another preparation step" onClick="addPrepSteps('dynamicPrepSteps');">
+    <!-- add image link -->
+    <div class="row">
+      <div class="input-field col s12">
+        <textarea id="recipe_image" class="materialize-textarea" name="recipe_image"></textarea>
+        <label for="recipe_image">Add link to recipe image</label>
+      </div>
+    </div>
+    <hr>
+    <!-- add recipe button -->
+    <div class="row">
+      <button class="btn waves-effect waves-light" type="submit" name="action">
+        Add Recipe
+        <i class="material-icons right">send</i>
+      </button>
+    </div>
+  </form>
+</div>
 </div>
 <script src="static\js\main.js"></script>
+
 
 
 {% endblock %}
