@@ -20,16 +20,27 @@
     </div>
     <hr>
     <!-- prep time -->
+    <div class="row">
+      <div class="input-field col s12">
+        <textarea id="prep_time" class="materialize-textarea" name="prep_time"></textarea>
+        <label for="prep_time">Preparation time</label>
+      </div>
+    </div>
     <hr>
     <!-- cook time -->
-
+    <div class="row">
+      <div class="input-field col s12">
+        <textarea id="cook_time" class="materialize-textarea" name="cook_time"></textarea>
+        <label for="cook_time">Cooking time</label>
+      </div>
+    </div>
     <hr>
     <!-- category -->
 
     <div class="row">
       <div class="input-field col s12">
         <i class="material-icons prefix">poll</i>
-        <select size="3" id="category" name="category_name">
+        <select id="category" name="category_name">
           <option value="" disabled selected>Choose your option</option>
           {% for cat in categories %}
           <option value="{{cat.category_id}}">{{cat.category_name}}</option>
@@ -46,7 +57,10 @@
       <i id="skill_2" class="material-icons">radio_button_unchecked</i>
       <i id="skill_3" class="material-icons">radio_button_unchecked</i>
       <i id="skill_4" class="material-icons">radio_button_unchecked</i>
-
+      <div id = "skill"class="input-field col s12">
+        <textarea id="skill" class="materialize-textarea" name="skill"></textarea>
+        <label for="skill">Skill</label>
+      </div>
     </div>
     <hr>
 

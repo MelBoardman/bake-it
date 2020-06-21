@@ -87,11 +87,11 @@ def insert_recipe():
         'added_by': session['username'],
         'description': request.form.get('recipe_description'),
         'category_id': request.form.get('category_name'),
-        # 'prep_time': request.form.get('prep_time'),
-        # 'cook_time': request.form.get('cook_time'),
+        'prep_time': request.form.get('prep_time'),
+        'cook_time': request.form.get('cook_time'),
         'ingredients': request.form.getlist('myIngredients[]'),
         'preparation_steps': request.form.getlist('myPrepSteps[]'),
-        # 'skill_level': ,
+        'skill_level': request.form.get('skill'),
         # 'date_added': ,
         'image': request.form.get('recipe_image')
     })

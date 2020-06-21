@@ -24,6 +24,7 @@ skill1.addEventListener('click', (event) => {
      click = true;
      skillLevelSelected = 1;
      skill1.innerHTML = "radio_button_checked";
+     addSkillLevel(1)
 });
 
 
@@ -42,6 +43,7 @@ skill2.addEventListener('click', (event) => {
      skillLevelSelected = 2;
      skill1.innerHTML = "radio_button_checked";
      skill2.innerHTML = "radio_button_checked";
+     addSkillLevel(2)
 });
 
 skill3.addEventListener('mouseover', (event) => {
@@ -62,6 +64,7 @@ skill3.addEventListener('click', (event) => {
      skill1.innerHTML = "radio_button_checked";
      skill2.innerHTML = "radio_button_checked";
      skill3.innerHTML = "radio_button_checked";
+     addSkillLevel(3)
 });
 
 
@@ -69,7 +72,7 @@ skill3.addEventListener('click', (event) => {
 skill4.addEventListener('mouseover', (event) => {
      skill1.innerHTML = "radio_button_checked";
      skill2.innerHTML = "radio_button_checked";
-     skill3.innerHTML = "radio_button_checked";
+     skill3.innerHTML = "radio_button_checked"; 
      skill4.innerHTML = "radio_button_checked";
 });
 skill4.addEventListener('mouseout', (event) => {
@@ -87,8 +90,11 @@ skill4.addEventListener('click', (event) => {
      skill2.innerHTML = "radio_button_checked";
      skill3.innerHTML = "radio_button_checked";
      skill4.innerHTML = "radio_button_checked";
+     addSkillLevel(4)
 });
-
+function addSkillLevel (skillLevelSelected) {
+     skill.innerHTML ='<textarea id="skill" class="materialize-textarea" name="skill">' + skillLevelSelected +'</textarea><label for="skill">Skill</label>'
+};
 // Taken from http://www.randomsnippets.com/2008/02/21/how-to-dynamically-add-form-elements-via-javascript/
 var ingredientCounter = 1;
 var ingredientLimit = 20;
