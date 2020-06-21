@@ -29,8 +29,8 @@
     <div class="row">
       <div class="input-field col s12">
         <i class="material-icons prefix">poll</i>
-        <select size = "3" id="category" name="category_name">
-          <option  value="" disabled selected>Choose your option</option>
+        <select size="3" id="category" name="category_name">
+          <option value="" disabled selected>Choose your option</option>
           {% for cat in categories %}
           <option value="{{cat.category_id}}">{{cat.category_name}}</option>
           {% endfor %}
@@ -39,12 +39,15 @@
       </div>
     </div>
     <hr>
-    <h5> Select skill level:</h5>
-    <!-- skill level -->
-    <i id = "skill_1" class="material-icons">radio_button_unchecked</i>
-    <i id = "skill_2" class="material-icons">radio_button_unchecked</i>
-    <i id = "skill_3" class="material-icons">radio_button_unchecked</i>
-    <i id = "skill_4" class="material-icons">radio_button_unchecked</i>
+    <div id = "skill_level">
+      <h5> Select skill level:</h5>
+      <!-- skill level -->
+      <i id="skill_1" class="material-icons">radio_button_unchecked</i>
+      <i id="skill_2" class="material-icons">radio_button_unchecked</i>
+      <i id="skill_3" class="material-icons">radio_button_unchecked</i>
+      <i id="skill_4" class="material-icons">radio_button_unchecked</i>
+
+    </div>
     <hr>
 
     <!-- ingredients -->
