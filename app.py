@@ -76,7 +76,7 @@ def display_recipe(recipe_id):
 
 @app.route("/add_recipe")
 def add_recipe():
-  return render_template("add_recipe.html", categories = mongo.db.recipe_category.find(), dietary_reqs = mongo.db.dietary_req.find())
+  return render_template("add_recipe.html", categories = mongo.db.recipe_category.find())
 
 @app.route("/insert_recipe", methods=['POST', 'GET'])
 def insert_recipe():

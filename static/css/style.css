@@ -1,6 +1,10 @@
 body {
     background-image: url("../assets/images/gingham24mintgreen_shop_preview.png");
 }
+nav {
+    background-color: darkcyan;
+}
+
 .row {
     margin: 0;
     padding: 0;
