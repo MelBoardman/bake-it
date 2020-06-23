@@ -65,7 +65,7 @@ nav {
     padding: 10px;
 }
 
-.align {
+.recipe-page .align {
     padding-bottom: 100%;
     margin-bottom: -100%;
 }
@@ -79,7 +79,7 @@ nav {
 }
 
 .add-recipe {
-    background-color:#80cbc4;
+    background-color:#b2dfdb;
     margin-left: 30px;
     margin-right: 30px;
     margin-top: 20px;

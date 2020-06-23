@@ -9,6 +9,7 @@ const skill2 = document.querySelector("#skill_2");
 const skill3 = document.querySelector("#skill_3");
 const skill4 = document.querySelector("#skill_4");
 const skillLevel = document.querySelector("#skill_level");
+const skill = document.querySelector("#skill")
 var click = false;
 var skillLevelSelected = 0;
 
@@ -93,7 +94,7 @@ skill4.addEventListener('click', (event) => {
      addSkillLevel(4)
 });
 function addSkillLevel (skillLevelSelected) {
-     skill.innerHTML ='<textarea id="skill" class="materialize-textarea" name="skill">' + skillLevelSelected +'</textarea><label for="skill">Skill</label>'
+     skill.value = skillLevelSelected;
 };
 // Taken from http://www.randomsnippets.com/2008/02/21/how-to-dynamically-add-form-elements-via-javascript/
 var ingredientCounter = 1;
