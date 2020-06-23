@@ -5,7 +5,7 @@
  {{message}}
 {% endif %}
 
-<form  method=POST action ="{{url_for('log_on')}}" class = "col s12">
+<form  method=POST action ="{{url_for('log_in')}}" class = "col s12">
     <div class="row">
         <div class="input-field col s6">
             <i class="material-icons prefix">account_circle</i>
@@ -28,7 +28,7 @@
 </form>
 <br>
 <div>
-    Don't have an account? <a href="{{ url_for('signup') }}">Become a member here</a>.
+    Don't have an account? <a href="{{ url_for('sign_up') }}">Become a member here</a>.
 </div>
 
 

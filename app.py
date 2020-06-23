@@ -21,26 +21,20 @@ def home():
         return render_template("index.html", logged_in = True, message ='You are logged in as ' + session['username'])
   return render_template("index.html")
 
-@app.route("/log_in")
+@app.route("/log_in", methods=['POST', 'GET'])
 def log_in():
-  return render_template("log_in.html")
+  if request.method == 'POST':
+    members = mongo.db.members
+    login_member = members.find_one({'username' : request.form['username']})
+    if login_member:
 
-@app.route("/log_on", methods=['POST', 'GET'])
-def log_on():
-  members = mongo.db.members
-  login_member = members.find_one({'username' : request.form['username']})
-  if login_member:
-
-    if bcrypt.hashpw(request.form['password'].encode('utf-8'), login_member['password'].encode('utf-8')) == login_member['password'].encode('utf-8'):
-      # set session user id
-      session['username'] = request.form['username']
-      return redirect(url_for('my_recipes', username =session['username'])) 
+      if bcrypt.hashpw(request.form['password'].encode('utf-8'), login_member['password'].encode('utf-8')) == login_member['password'].encode('utf-8'):
+        # set session user id
+        session['username'] = request.form['username']
+        return redirect(url_for('my_recipes', username =session['username'])) 
     
-  return render_template("log_in.html", log_on_fail = True, message = 'Invalid username/password combination')
-
-@app.route("/signup")
-def signup():
-  return render_template("sign_up.html")
+    return render_template("log_in.html", log_on_fail = True, message = 'Invalid username/password combination')
+  return render_template("log_in.html")
 
 # sign up page used to register new member
 @app.route("/sign_up", methods=['POST', 'GET'])
@@ -60,7 +54,8 @@ def sign_up():
             # set session user id
             session['username'] = request.form['username']
             return redirect(url_for('my_recipes', username =session['username'])) 
-  return render_template("sign_up.html", username_fail = True, message = "That username already exists!")
+        return render_template("sign_up.html", username_fail = True, message = "That username already exists!")
+  return render_template("sign_up.html")
 
 @app.route("/my_recipes/<username>")
 def my_recipes(username):
