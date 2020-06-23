@@ -90,7 +90,7 @@ def insert_recipe():
         'cook_time': request.form.get('cook_time'),
         'ingredients': request.form.getlist('myIngredients[]'),
         'preparation_steps': request.form.getlist('myPrepSteps[]'),
-        'skill_level': request.form.get('skill'),
+        'skill_level': int(request.form.get('skill')),
         # 'date_added': ,
         'image': request.form.get('recipe_image')
     })

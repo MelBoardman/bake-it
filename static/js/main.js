@@ -23,7 +23,7 @@ skill1.addEventListener('mouseout', (event) => {
 });
 skill1.addEventListener('click', (event) => {
      click = true;
-     skillLevelSelected = 1;
+     skill.value = 1;
      skill1.innerHTML = "radio_button_checked";
      addSkillLevel(1)
 });
@@ -41,7 +41,7 @@ skill2.addEventListener('mouseout', (event) => {
 });
 skill2.addEventListener('click', (event) => {
      click = true;
-     skillLevelSelected = 2;
+     skill.value = 2;
      skill1.innerHTML = "radio_button_checked";
      skill2.innerHTML = "radio_button_checked";
      addSkillLevel(2)
@@ -61,7 +61,7 @@ skill3.addEventListener('mouseout', (event) => {
 });
 skill3.addEventListener('click', (event) => {
      click = true;
-     skillLevelSelected = 3;
+     skill.value = 3;
      skill1.innerHTML = "radio_button_checked";
      skill2.innerHTML = "radio_button_checked";
      skill3.innerHTML = "radio_button_checked";
@@ -86,16 +86,13 @@ skill4.addEventListener('mouseout', (event) => {
 });
 skill4.addEventListener('click', (event) => {
      click = true;
-     skillLevelSelected = 4;
+     skill.value = 4;
      skill1.innerHTML = "radio_button_checked";
      skill2.innerHTML = "radio_button_checked";
      skill3.innerHTML = "radio_button_checked";
      skill4.innerHTML = "radio_button_checked";
-     addSkillLevel(4)
 });
-function addSkillLevel (skillLevelSelected) {
-     skill.value = skillLevelSelected;
-};
+
 // Taken from http://www.randomsnippets.com/2008/02/21/how-to-dynamically-add-form-elements-via-javascript/
 var ingredientCounter = 1;
 var ingredientLimit = 20;
