@@ -59,7 +59,7 @@ def sign_up():
 
 @app.route("/my_recipes/<username>")
 def my_recipes(username):
-    return render_template("my_recipes.html", logged_in = True, cat_list = list(mongo.db.recipe_category.find()), recipes=mongo.db.recipes.find())
+    return render_template("my_recipes.html", logged_in = True, cat_list = list(mongo.db.recipe_category.find()), recipes=mongo.db.recipes.find({"added_by": session['username']}))
 
 @app.route("/get_recipes")
 def get_recipes():
