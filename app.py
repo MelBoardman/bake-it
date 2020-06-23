@@ -31,7 +31,7 @@ def log_in():
       if bcrypt.hashpw(request.form['password'].encode('utf-8'), login_member['password'].encode('utf-8')) == login_member['password'].encode('utf-8'):
         # set session user id
         session['username'] = request.form['username']
-        return redirect(url_for('my_recipes', username =session['username'])) 
+        return redirect(url_for('my_recipes', username =session['username'], logged_in = True)) 
     
     return render_template("log_in.html", log_on_fail = True, message = 'Invalid username/password combination')
   return render_template("log_in.html")
@@ -53,25 +53,29 @@ def sign_up():
             members.insert({'username' : request.form['username'], 'password' : hashpass, 'member_type' :'member'})
             # set session user id
             session['username'] = request.form['username']
-            return redirect(url_for('my_recipes', username =session['username'])) 
+            return redirect(url_for('my_recipes', username =session['username'], logged_in = True)) 
         return render_template("sign_up.html", username_fail = True, message = "That username already exists!")
   return render_template("sign_up.html")
 
 @app.route("/my_recipes/<username>")
 def my_recipes(username):
-    return render_template("my_recipes.html", cat_list = list(mongo.db.recipe_category.find()), recipes=mongo.db.recipes.find())
+    return render_template("my_recipes.html", logged_in = True, cat_list = list(mongo.db.recipe_category.find()), recipes=mongo.db.recipes.find())
 
 @app.route("/get_recipes")
 def get_recipes():
-    return render_template("all_recipes.html", cat_list = list(mongo.db.recipe_category.find()), recipes=mongo.db.recipes.find())
+  if 'username' in session:
+    return render_template("all_recipes.html", logged_in = True, cat_list = list(mongo.db.recipe_category.find()), recipes=mongo.db.recipes.find())
+  return render_template("all_recipes.html", cat_list = list(mongo.db.recipe_category.find()), recipes=mongo.db.recipes.find())  
 
 @app.route("/display_recipe/<recipe_id>")
 def display_recipe(recipe_id):
+  if 'username' in session:
+    return render_template("recipe.html", logged_in = True, cat_list = list(mongo.db.recipe_category.find()),recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)}))
   return render_template("recipe.html", cat_list = list(mongo.db.recipe_category.find()),recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)}))
 
 @app.route("/add_recipe")
 def add_recipe():
-  return render_template("add_recipe.html", categories = mongo.db.recipe_category.find())
+  return render_template("add_recipe.html", logged_in = True, categories = mongo.db.recipe_category.find())
 
 @app.route("/insert_recipe", methods=['POST', 'GET'])
 def insert_recipe():
