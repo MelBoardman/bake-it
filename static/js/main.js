@@ -102,7 +102,7 @@ function addIngredients(divName) {
           alert("You have reached the limit of adding " + ingredientCounter + " ingredients");
      } else {
           var newdiv = document.createElement('div');
-          newdiv.innerHTML = "Ingredient " + (ingredientCounter + 1) + " <br><input type='text' name='myIngredients[]'>";
+          newdiv.innerHTML = "<i class='material-icons prefix'>assignment</i><label>Additional Ingredient</label><input type='text' name='myIngredients[]'>";
           document.getElementById(divName).appendChild(newdiv);
           ingredientCounter++;
      }
@@ -116,7 +116,7 @@ function addPrepSteps(divName) {
           alert("You have reached the limit of adding " + prepCounter + " preparation steps");
      } else {
           var newdiv = document.createElement('div');
-          newdiv.innerHTML = "Preparation Step " + (prepCounter + 1) + " <br><input type='text' name='myPrepSteps[]'>";
+          newdiv.innerHTML = "<i class='material-icons prefix'>assignment</i><label>Additional Preparation Step</label><input type='text' name='myPrepSteps[]'>";
           document.getElementById(divName).appendChild(newdiv);
           ingredientCounter++;
      }
