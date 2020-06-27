@@ -3,6 +3,7 @@ from flask import Flask, render_template, redirect, request, url_for, session
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 import bcrypt
+import datetime
 
 from os import path
 if path.exists("env.py"):
@@ -79,6 +80,7 @@ def add_recipe():
 
 @app.route("/insert_recipe", methods=['POST', 'GET'])
 def insert_recipe():
+  now = datetime.datetime.now()
   recipes = mongo.db.recipes
   recipes.insert_one(
     {
@@ -91,7 +93,7 @@ def insert_recipe():
         'ingredients': request.form.getlist('myIngredients[]'),
         'preparation_steps': request.form.getlist('myPrepSteps[]'),
         'skill_level': int(request.form.get('skill')),
-        # 'date_added': ,
+        'date_added': now,
         'image': request.form.get('recipe_image')
     })
   return redirect(url_for('get_recipes'))
