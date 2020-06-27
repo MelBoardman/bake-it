@@ -25,7 +25,6 @@ skill1.addEventListener('click', (event) => {
      click = true;
      skill.value = 1;
      skill1.innerHTML = "radio_button_checked";
-     addSkillLevel(1)
 });
 
 
@@ -44,7 +43,7 @@ skill2.addEventListener('click', (event) => {
      skill.value = 2;
      skill1.innerHTML = "radio_button_checked";
      skill2.innerHTML = "radio_button_checked";
-     addSkillLevel(2)
+
 });
 
 skill3.addEventListener('mouseover', (event) => {
@@ -65,7 +64,6 @@ skill3.addEventListener('click', (event) => {
      skill1.innerHTML = "radio_button_checked";
      skill2.innerHTML = "radio_button_checked";
      skill3.innerHTML = "radio_button_checked";
-     addSkillLevel(3)
 });
 
 

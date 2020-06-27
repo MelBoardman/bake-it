@@ -100,7 +100,7 @@ def insert_recipe():
 
 @app.route('/edit_recipe/<recipe_id>')
 def edit_recipe(recipe_id):
-  return render_template("edit_recipe.html", cat_list = list(mongo.db.recipe_category.find()),recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)}))
+  return render_template("edit_recipe.html", cat_list = list(mongo.db.recipe_category.find()),categories = mongo.db.recipe_category.find(),recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)}))
 
 @app.route('/update_recipe/<recipe_id>', methods=["POST"])
 def update_recipe(recipe_id):
@@ -111,7 +111,7 @@ def update_recipe(recipe_id):
         'recipe_name': request.form.get('recipe_name'),
         'added_by': session['username'],
         'description': request.form.get('recipe_description'),
-        # 'category_id': int(request.form.get('category_name')),
+        'category_id': int(request.form.get('category_name')),
         'prep_time': request.form.get('prep_time'),
         'cook_time': request.form.get('cook_time'),
         'ingredients': request.form.getlist('myIngredients[]'),
