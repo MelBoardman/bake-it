@@ -1,7 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="row">
+
+<div class="inline-block">
     <h1 class="head">All Recipes</h1>
+</div>
+<div class="inline-block">
     <a class="waves-effect waves-light btn-large" href="{{url_for('add_recipe')}}"><i
             class="material-icons left">add</i>Add a recipe</a>
 </div>
@@ -13,15 +16,15 @@
         <div class="card medium">
             <div class="card-image">
                 <img src="{{recipe.image}}">
-                <span class="card-title">{{recipe.recipe_name}}</span>
+                <span class="card-title"><strong>{{recipe.recipe_name}}</strong></span>
             </div>
             <div class="card-content">
-                <p>Recipe Category:
+                <p>Recipe Category:</strong>
                     {% for cat in cat_list %}
                     {% if cat['category_id'] == recipe.category_id %}
                     {{cat['category_name'].capitalize()}}
                     {% endif %}
-                    {% endfor %} </p>
+                    {% endfor %}</strong> </p>
                 <p>Skill Level:
                     {% if recipe.skill_level == 1 %}
                     <i class="material-icons">radio_button_checked</i>

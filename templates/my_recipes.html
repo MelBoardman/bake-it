@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="row">
+
+
+<div class="inline-block">
     <h1 class="head">My Recipes</h1>
+</div>
+<div class="inline-block">
     <a class="waves-effect waves-light btn-large" href="{{url_for('add_recipe')}}"><i
             class="material-icons left">add</i>Add a recipe</a>
 </div>
@@ -13,16 +17,16 @@
         <div class="card medium">
             <div class="card-image">
                 <img src="{{recipe.image}}">
-                <span class="card-title">{{recipe.recipe_name}}</span>
+                <span class="card-title"><strong>{{recipe.recipe_name}}</strong></span>
             </div>
             <div class="card-content">
-                <p>Recipe Category:
-                    {% for cat in cat_list %}
-                    {% if cat['category_id'] == recipe.category_id %}
-                    {{cat['category_name'].capitalize()}}
-                    {% endif %}
-                    {% endfor %} </p>
-                <p>Skill Level:
+                <p>Category:<strong>
+                        {% for cat in cat_list %}
+                        {% if cat['category_id'] == recipe.category_id %}
+                        {{cat['category_name'].capitalize()}}
+                        {% endif %}
+                        {% endfor %} </strong></p>
+                <p>Skill:<span></span>
                     {% if recipe.skill_level == 1 %}
                     <i class="material-icons">radio_button_checked</i>
                     <i class="material-icons">radio_button_unchecked</i>
@@ -44,15 +48,16 @@
                     <i class="material-icons">radio_button_checked</i>
                     <i class="material-icons">radio_button_checked</i>
                     {% endif %}
-                </p>
+                    </span></p>
             </div>
             <div class="card-action">
-                <a href="{{url_for('display_recipe', recipe_id=recipe._id)}}"><strong>Bake It!</strong></a>
+                <a href="{{url_for('display_recipe', recipe_id=recipe._id)}}"><strong>View</strong></a>
                 <a href="{{url_for('display_recipe', recipe_id=recipe._id)}}"><strong>Edit</strong></a>
-                <a href="{{url_for('display_recipe', recipe_id=recipe._id)}}"><strong>Delete</strong></a>
+                <a href="{{url_for('display_recipe', recipe_id=recipe._id)}}"><i class="material-icons">delete</i></a>
             </div>
         </div>
     </div>
     {% endfor %}
 </div>
+
 {% endblock %}

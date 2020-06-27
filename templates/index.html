@@ -1,33 +1,41 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1> Bake It!</h1>
-<div class="intro">
-    <p>Bake it is a site where you can find tried and tested recipes that have been shared by our members. You can also become a member and share your own Baking recipes. 
- 
-        Share it, find it., make it, bake it?............... <a href ="{{url_for('sign_up')}}"><strong>Become a member</strong></a>
-         
-        We have teamed up with Pyrex. Pyrex are a long established cookware manufacture whos products are hardwearing and can be found in most kitchens. .......
-    </p>
+<div class="container">
+    <div class="bake-background">
+        <h1 id="bake-it"> Bake It!</h1>
+        <div class="intro">
+            <p>Bake it is a site where you can find tried and tested recipes that have been shared by our members. You
+                can
+                also become a member and share your own Baking recipes.
+
+                Share it, find it., make it, bake it?............... <a href="{{url_for('sign_up')}}"><strong>Become a
+                        member</strong></a>
+
+                We have teamed up with Pyrex. Pyrex are a long established cookware manufacture whos products are
+                hardwearing and can be found in most kitchens. .......
+            </p>
+        </div>
+        <div class="homepage-buttons">
+            {% if logged_in %}
+            {{message}}
+            <div class="buttons">
+                <a class="waves-effect waves-light btn-large" href="{{url_for('get_recipes')}}">Let's bake!</a>
+
+                <a class="waves-effect waves-light btn-large"
+                    href="{{url_for('my_recipes', username = session['username'])}}">My Recipes</a>
+
+            </div>
+            {% else %}
+            <div class="buttons">
+                <a class="waves-effect waves-light btn-large" href="{{url_for('get_recipes')}}">Let's bake!</a>
+
+                <a class="waves-effect waves-light btn-large" href="{{url_for('log_in')}}">Log in</a>
+
+            </div>
+            {% endif %}
+        </div>
+    </div>
 </div>
-{% if logged_in %}
-{{message}}
-    <div class="buttons">
-        <a class="waves-effect waves-light btn-large" href="{{url_for('get_recipes')}}">Let's bake!</a>
-    
-        <a class="waves-effect waves-light btn-large" href ="{{url_for('my_recipes', username = session['username'])}}">My Recipes</a>
-    
-    </div>
-{% else %}
-    <div class="buttons">
-        <a class="waves-effect waves-light btn-large" href="{{url_for('get_recipes')}}">Let's bake!</a>
-
-        <a class="waves-effect waves-light btn-large" href ="{{url_for('log_in')}}">Log in</a>
-
-    </div>
-{% endif %}
- 
-
-
 
 
 {% endblock %}
