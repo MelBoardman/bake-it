@@ -1,8 +1,16 @@
 body {
     background-image: url("../assets/images/gingham24mintgreen_shop_preview.png");
-}
-nav {
-    background-color: darkcyan;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1 0 auto;
+  }
+   
+.nav-wrapper {
+    background-color: #009688;
 }
 
 .row {
@@ -40,7 +48,7 @@ nav {
     margin-right: 5px; 
     margin-top: 20px; 
     padding: 10px; 
-  }
+}
 
 .times {
     display: inline-block;
@@ -61,7 +69,7 @@ nav {
     margin-right: 5px; 
     margin-top: 20px;
     padding: 10px;
-  }
+}
 
 
 .prep-steps {
@@ -94,7 +102,6 @@ nav {
 
 }
 .skill_option {
-    /* text-align: center; */
     margin-left: 50px;
 }
 .inline-block {
@@ -109,4 +116,5 @@ nav {
     margin-top: 20px;
     padding: 20px;
     background-color:#b2dfdb;
+    margin-bottom: 20px;
 }
