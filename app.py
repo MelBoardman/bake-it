@@ -19,7 +19,11 @@ mongo = PyMongo(app)
 @app.route("/home")
 def home():
   if 'username' in session:
-        return render_template("index.html", logged_in = True, message ='You are logged in as ' + session['username'])
+    members = mongo.db.members
+    member = members.find_one({'username' : session['username']})
+    if member['member_type'] == 'admin':
+      return render_template("index.html", admin = True, logged_in = True, message ='You are logged in as ' + session['username'])
+    return render_template("index.html", logged_in = True, message ='You are logged in as ' + session['username'])
   return render_template("index.html")
 
 @app.route("/log_in", methods=['POST', 'GET'])
@@ -33,7 +37,7 @@ def log_in():
         # set session user id
         session['username'] = request.form['username']
         if login_member['member_type'] == 'admin':
-          return redirect(url_for('admin_page', username =session['username'], logged_in = True))
+          return redirect(url_for('admin_page', username =session['username'], logged_in = True, admin = True))
         return redirect(url_for('my_recipes', username =session['username'], logged_in = True)) 
     
     return render_template("log_in.html", log_on_fail = True, message = 'Invalid username/password combination')
@@ -62,26 +66,42 @@ def sign_up():
 
 @app.route("/my_recipes/<username>")
 def my_recipes(username):
+  members = mongo.db.members
+  member = members.find_one({'username' : session['username']})
+  if member['member_type'] == 'admin':
+    return render_template("my_recipes.html", admin = True, logged_in = True, username =session['username'], cat_list = list(mongo.db.recipe_category.find()), recipes=mongo.db.recipes.find({"added_by": session['username']}))
   return render_template("my_recipes.html",logged_in = True, username =session['username'], cat_list = list(mongo.db.recipe_category.find()), recipes=mongo.db.recipes.find({"added_by": session['username']}))
 
 @app.route("/admin_page/<username>")
 def admin_page(username):
-  return render_template("admin.html", logged_in = True, username =session['username'], cat_list = list(mongo.db.recipe_category.find()), recipes=mongo.db.recipes.find())
+  return render_template("admin.html", admin = True, logged_in = True, username =session['username'], categories = (mongo.db.recipe_category.find()), recipes=mongo.db.recipes.find())
 
 @app.route("/get_recipes")
 def get_recipes():
   if 'username' in session:
+    members = mongo.db.members
+    member = members.find_one({'username' : session['username']})
+    if member['member_type'] == 'admin':
+      return render_template("all_recipes.html", logged_in = True, admin = True, cat_list = list(mongo.db.recipe_category.find()), recipes=mongo.db.recipes.find())
     return render_template("all_recipes.html", logged_in = True, cat_list = list(mongo.db.recipe_category.find()), recipes=mongo.db.recipes.find())
   return render_template("all_recipes.html", logged_in = False, cat_list = list(mongo.db.recipe_category.find()), recipes=mongo.db.recipes.find())  
 
 @app.route("/display_recipe/<recipe_id>")
 def display_recipe(recipe_id):
   if 'username' in session:
+    members = mongo.db.members
+    member = members.find_one({'username' : session['username']})
+    if member['member_type'] == 'admin':
+      return render_template("recipe.html", admin = True, logged_in = True, cat_list = list(mongo.db.recipe_category.find()),recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)}))
     return render_template("recipe.html", logged_in = True, cat_list = list(mongo.db.recipe_category.find()),recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)}))
   return render_template("recipe.html", cat_list = list(mongo.db.recipe_category.find()),recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)}))
 
 @app.route("/add_recipe")
 def add_recipe():
+  members = mongo.db.members
+  member = members.find_one({'username' : session['username']})
+  if member['member_type'] == 'admin':
+    return render_template("add_recipe.html", admin = True, logged_in = True, categories = mongo.db.recipe_category.find())
   return render_template("add_recipe.html", logged_in = True, categories = mongo.db.recipe_category.find())
 
 @app.route("/insert_recipe", methods=['POST', 'GET'])
@@ -106,7 +126,11 @@ def insert_recipe():
 
 @app.route('/edit_recipe/<recipe_id>')
 def edit_recipe(recipe_id):
-  return render_template("edit_recipe.html", cat_list = list(mongo.db.recipe_category.find()),categories = mongo.db.recipe_category.find(),recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)}))
+  members = mongo.db.members
+  member = members.find_one({'username' : session['username']})
+  if member['member_type'] == 'admin':
+    return render_template("edit_recipe.html", admin = True, logged_in = True, cat_list = list(mongo.db.recipe_category.find()),categories = mongo.db.recipe_category.find(),recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)}))
+  return render_template("edit_recipe.html", logged_in = True, cat_list = list(mongo.db.recipe_category.find()),categories = mongo.db.recipe_category.find(),recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)}))
 
 @app.route('/update_recipe/<recipe_id>', methods=["POST"])
 def update_recipe(recipe_id):

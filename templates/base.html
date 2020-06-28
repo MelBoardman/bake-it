@@ -12,6 +12,29 @@
 
 <body>
     {% if logged_in: %}
+    {% if admin: %}
+    <header>
+        <nav>
+            <div class="nav-wrapper">
+                <div class="nav-wrapper">
+                    <a href="{{url_for('home')}}" class="brand-logo">Bake it!</a>
+                    <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                    <ul class="right hide-on-med-and-down">
+                        <li><a href="{{url_for('home')}}">Home</a></li>
+                        <li><a href="{{url_for('get_recipes')}}">Recipes</a></li>
+                        <li><a href="{{url_for('my_recipes', username = session['username'])}}">My Recipes</a></li>
+                        <li><a href="{{url_for('admin_page', username = session['username'])}}">Admin</a></li>
+                    </ul>
+                </div>
+        </nav>
+        <ul class="sidenav" id="mobile-demo">
+            <li><a href="{{url_for('home')}}">Home</a></li>
+            <li><a href="{{url_for('get_recipes')}}">Recipes</a></li>
+            <li><a href="{{url_for('my_recipes', username = session['username'])}}">My Recipes</a></li>
+            <li><a href="{{url_for('admin_page', username = session['username'])}}">Admin</a></li>
+        </ul>
+    </header>
+    {% else %}
     <header>
         <nav>
             <div class="nav-wrapper">
@@ -30,8 +53,9 @@
             <li><a href="{{url_for('get_recipes')}}">Recipes</a></li>
             <li><a href="{{url_for('my_recipes', username = session['username'])}}">My Recipes</a></li>
         </ul>
-
     </header>
+    {% endif %}
+
     {% else %}
     <header>
         <nav>
