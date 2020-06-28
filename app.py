@@ -92,7 +92,23 @@ def insert_category():
                       'ad_product_image': request.form.get('ad_product_image')
     }})
   return redirect(url_for('admin_page', username =session['username'], logged_in = True, admin = True))
- 
+
+@app.route("/edit_category/<category_id>")
+def edit_category(category_id):
+  return render_template("edit_category.html", admin = True, logged_in = True, category = mongo.db.recipe_category.find_one({"_id": ObjectId(category_id)}))
+
+@app.route("/update_category/<category_id>", methods=['POST', 'GET'])
+def update_category(category_id):
+  categories = mongo.db.recipe_category
+  categories.update({'_id': ObjectId(category_id)},
+    {
+        'category_name': request.form.get('category_name'),
+        'ad_links': {'ad_product_name': request.form.get('ad_product_name'),
+                      'ad_product_description': request.form.get('ad_product_description'),
+                      'ad_product_link': request.form.get('ad_product_link'),
+                      'ad_product_image': request.form.get('ad_product_image')
+    }})
+  return redirect(url_for('admin_page', username =session['username'], logged_in = True, admin = True))
 
 @app.route("/get_recipes")
 def get_recipes():
