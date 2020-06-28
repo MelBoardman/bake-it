@@ -11,7 +11,7 @@ if path.exists("env.py"):
 
 app = Flask(__name__)
 app.config["MONGO_DBNAME"] = 'bake-it'
-app.config["MONGO_URI"] = os.getenv('MONGO_URI','mongodb://localhost')
+app.config["MONGO_URI"] = os.environ.get('MONGO_URI')
 
 mongo = PyMongo(app)
  
@@ -198,7 +198,7 @@ def delete_recipe(recipe_id):
 
 
 if __name__ == '__main__':
-    app.secret_key = 'mysecret'
+    app.secret_key = os.environ.get('SECRET_KEY')
     app.run(host=os.environ.get('IP'),
             port=os.environ.get('PORT'),
-            debug=True)
+            debug=os.environ.get('DEBUG'))
