@@ -5,8 +5,28 @@
     <h1 class="head">All Recipes</h1>
 </div>
 <div class="inline-block">
+    <!-- check if user is logged in -->
+    {% if logged_in %}
     <a class="waves-effect waves-light btn-large" href="{{url_for('add_recipe')}}"><i
             class="material-icons left">add</i>Add a recipe</a>
+    {% else %}
+    <!-- if not logged display modal with log in, sign up links -->
+    <a class="waves-effect waves-light btn-large modal-trigger" href="#not-logged-in"><i
+            class="material-icons left">add</i>Add a recipe</a>
+
+
+    <div id="not-logged-in" class="modal">
+        <div class="modal-content">
+            <h4>Uh-Oh... You are not logged in</h4>
+            <p>You need to be logged in to add a recipe.</p>
+        </div>
+        <div class="modal-footer">
+            <a href="{{url_for('log_in')}}" class="modal-close waves-effect waves-green btn-flat">Log In</a>
+            <a href="{{url_for('sign_up')}}" class="modal-close waves-effect waves-green btn-flat">Become a member</a>
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+        </div>
+    </div>
+    {% endif %}
 </div>
 
 

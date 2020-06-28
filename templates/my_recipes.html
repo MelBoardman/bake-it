@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
-
+{% if admin %}
+    <p>Admin user</p>
+{% else %}
+    <p>Not admin user</p>
+{%endif%}
 
 <div class="inline-block">
     <h1 class="head">My Recipes</h1>
@@ -53,11 +57,28 @@
             <div class="card-action">
                 <a href="{{url_for('display_recipe', recipe_id=recipe._id)}}"><strong>View</strong></a>
                 <a href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"><strong>Edit</strong></a>
-                <a href="{{url_for('delete_recipe', recipe_id=recipe._id)}}"><i class="material-icons">delete</i></a>
+                <!-- Modal Trigger -->
+                <a href="#modal1" class ="modal-trigger"><i class="material-icons">delete</i></a>
+                
+                <div id="modal1" class="modal">
+                    <div class="modal-content">
+                        <h4>Delete Recipe</h4>
+                        <p>Are you sure you want to delete the recipe?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="{{url_for('delete_recipe', recipe_id=recipe._id)}}" class="modal-close waves-effect waves-green btn-flat">Yes</a>
+                        <a href="#!" class="modal-close waves-effect waves-green btn-flat">No</a>
+                    </div>
+                </div>
+                
+
             </div>
         </div>
     </div>
+    
+    <!-- href="{{url_for('delete_recipe', recipe_id=recipe._id)}}" -->
     {% endfor %}
 </div>
+
 
 {% endblock %}
