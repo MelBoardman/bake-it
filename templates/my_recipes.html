@@ -1,11 +1,5 @@
 {% extends 'base.html' %}
 {% block content %}
-{% if admin %}
-    <p>Admin user</p>
-{% else %}
-    <p>Not admin user</p>
-{%endif%}
-
 <div class="inline-block">
     <h1 class="head">My Recipes</h1>
 </div>
@@ -13,7 +7,6 @@
     <a class="waves-effect waves-light btn-large" href="{{url_for('add_recipe')}}"><i
             class="material-icons left">add</i>Add a recipe</a>
 </div>
-
 
 <div class="row">
     {% for recipe in recipes %}
@@ -76,7 +69,6 @@
         </div>
     </div>
     
-    <!-- href="{{url_for('delete_recipe', recipe_id=recipe._id)}}" -->
     {% endfor %}
 </div>
 

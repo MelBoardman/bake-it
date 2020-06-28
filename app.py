@@ -32,6 +32,8 @@ def log_in():
       if bcrypt.hashpw(request.form['password'].encode('utf-8'), login_member['password'].encode('utf-8')) == login_member['password'].encode('utf-8'):
         # set session user id
         session['username'] = request.form['username']
+        if login_member['member_type'] == 'admin':
+          return redirect(url_for('admin_page', username =session['username'], logged_in = True))
         return redirect(url_for('my_recipes', username =session['username'], logged_in = True)) 
     
     return render_template("log_in.html", log_on_fail = True, message = 'Invalid username/password combination')
@@ -60,11 +62,11 @@ def sign_up():
 
 @app.route("/my_recipes/<username>")
 def my_recipes(username):
-  members = mongo.db.members
-  member = members.find_one({'username' : session['username']})
-  if member.member_type == 'admin':
-    return render_template("my_recipes.html", logged_in = True, admin = True, cat_list = list(mongo.db.recipe_category.find()), recipes=mongo.db.recipes.find({"added_by": session['username']}))
-  return render_template("my_recipes.html", logged_in = True, cat_list = list(mongo.db.recipe_category.find()), recipes=mongo.db.recipes.find({"added_by": session['username']}))
+  return render_template("my_recipes.html",logged_in = True, username =session['username'], cat_list = list(mongo.db.recipe_category.find()), recipes=mongo.db.recipes.find({"added_by": session['username']}))
+
+@app.route("/admin_page/<username>")
+def admin_page(username):
+  return render_template("admin.html", logged_in = True, username =session['username'], cat_list = list(mongo.db.recipe_category.find()), recipes=mongo.db.recipes.find())
 
 @app.route("/get_recipes")
 def get_recipes():
