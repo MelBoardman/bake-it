@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+
+    <form action="{{ url_for('insert_category') }}" method="POST" class="col s12 add-recipe">
+        <h3>Add a new recipe category</h3>
+        <!-- category name -->
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">cake</i>
+                <input id="category_name" name="category_name" type="text" class="validate" />
+                <label for="icon_prefix">Category Name</label>
+            </div>
+        </div>
+
+        <!-- Advertisement Product Name -->
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">assignment</i>
+                <textarea id="ad_product_name" class="materialize-textarea" name="ad_product_name"></textarea>
+                <label for="ad_product_name">Advertisement Product Name</label>
+            </div>
+        </div>
+        <!-- Advertisement Product Description -->
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">assignment</i>
+                <textarea id="ad_product_description" class="materialize-textarea"
+                    name="ad_product_description"></textarea>
+                <label for="ad_product_description">Advertisement Product Description</label>
+            </div>
+        </div>
+
+        <!-- Advertisement Product Link -->
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">link</i>
+                <textarea id="ad_product_link" class="materialize-textarea" name="ad_product_link"></textarea>
+                <label for="ad_product_link">Advertisement Product Link</label>
+            </div>
+        </div>
+
+        <!-- Advertisement Product image -->
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">photo</i>
+                <textarea id="ad_product_image" class="materialize-textarea" name="ad_product_image"></textarea>
+                <label for="ad_product_image">Advertisement Product Image</label>
+            </div>
+        </div>
+
+
+
+        <!-- add category button -->
+
+
+        <button class="btn waves-effect waves-light" type="submit" name="action">
+            Add Category
+            <i class="material-icons right">send</i>
+        </button>
+
+    </form>
+</div>
+<script src="static\js\main.js"></script>
+
+
+
+{% endblock %}

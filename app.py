@@ -76,6 +76,24 @@ def my_recipes(username):
 def admin_page(username):
   return render_template("admin.html", admin = True, logged_in = True, username =session['username'], categories = (mongo.db.recipe_category.find()), recipes=mongo.db.recipes.find())
 
+@app.route("/add_category")
+def add_category():
+  return render_template("add_category.html", admin = True, logged_in = True, username =session['username'], categories = (mongo.db.recipe_category.find()))
+
+@app.route("/insert_category", methods=['POST', 'GET'])
+def insert_category():
+  categories = mongo.db.recipe_category
+  categories.insert_one(
+    {
+        'category_name': request.form.get('category_name'),
+        'ad_links': {'ad_product_name': request.form.get('ad_product_name'),
+                      'ad_product_description': request.form.get('ad_product_description'),
+                      'ad_product_link': request.form.get('ad_product_link'),
+                      'ad_product_image': request.form.get('ad_product_image')
+    }})
+  return redirect(url_for('admin_page', username =session['username'], logged_in = True, admin = True))
+ 
+
 @app.route("/get_recipes")
 def get_recipes():
   if 'username' in session:
@@ -113,7 +131,7 @@ def insert_recipe():
         'recipe_name': request.form.get('recipe_name'),
         'added_by': session['username'],
         'description': request.form.get('recipe_description'),
-        'category_id': int(request.form.get('category_name')),
+        'category_name': request.form.get('category_name'),
         'prep_time': request.form.get('prep_time'),
         'cook_time': request.form.get('cook_time'),
         'ingredients': request.form.getlist('myIngredients[]'),
@@ -141,7 +159,7 @@ def update_recipe(recipe_id):
         'recipe_name': request.form.get('recipe_name'),
         'added_by': session['username'],
         'description': request.form.get('recipe_description'),
-        'category_id': int(request.form.get('category_name')),
+        'category_name': request.form.get('category_name'),
         'prep_time': request.form.get('prep_time'),
         'cook_time': request.form.get('cook_time'),
         'ingredients': request.form.getlist('myIngredients[]'),

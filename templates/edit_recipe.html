@@ -49,13 +49,13 @@
             <i class="material-icons prefix">assignment</i>
             <select id="category" name="category_name">
                 {% for cat in cat_list %}
-                {% if cat['category_id'] == recipe.category_id %}
+                {% if cat['category_name'] == recipe.category_name %}
                 <option value="" disabled selected>
-                    {{cat['category_name'].capitalize()}}</option>
+                    {{recipe.category_name.capitalize()}}</option>
                 {% endif %}
                 {% endfor %}
                 {% for cat in categories %}
-                <option value="{{cat.category_id}}">{{cat.category_name}}</option>
+                <option value="{{cat.category_name}}">{{cat.category_name}}</option>
                 {% endfor %}
             </select>
             <label>Recipe Category</label>

@@ -19,7 +19,7 @@
             <div class="card-content">
                 <p>Category:<strong>
                         {% for cat in cat_list %}
-                        {% if cat['category_id'] == recipe.category_id %}
+                        {% if cat['category_name'] == recipe.category_name %}
                         {{cat['category_name'].capitalize()}}
                         {% endif %}
                         {% endfor %} </strong></p>
