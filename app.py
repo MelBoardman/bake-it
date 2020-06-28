@@ -110,6 +110,11 @@ def update_category(category_id):
     }})
   return redirect(url_for('admin_page', username =session['username'], logged_in = True, admin = True))
 
+@app.route("/delete_category/<category_id>")
+def delete_category(category_id):
+  mongo.db.recipe_category.remove({'_id': ObjectId(category_id)})
+  return redirect(url_for('admin_page', username =session['username'], logged_in = True, admin = True))
+
 @app.route("/get_recipes")
 def get_recipes():
   if 'username' in session:
