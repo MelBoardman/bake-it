@@ -36,6 +36,52 @@
         </div>
     </div>
 </div>
-
+<h3>Latest Recipes</h3>
+<div class="row">
+    {% for recipe in recently_added %}
+    <div class="col s12 m4">
+        <div class="card medium">
+            <div class="card-image">
+                <img src="{{recipe.image}}">
+                <span class="card-title"><strong>{{recipe.recipe_name}}</strong></span>
+            </div>
+            <div class="card-content">
+                <p>Recipe Category:</strong>
+                    {% for cat in cat_list %}
+                    {% if cat['category_name'] == recipe.category_name %}
+                    {{cat['category_name'].capitalize()}}
+                    {% endif %}
+                    {% endfor %}</strong> </p>
+                <p>Skill Level:
+                    {% if recipe.skill_level == 1 %}
+                    <i class="material-icons">radio_button_checked</i>
+                    <i class="material-icons">radio_button_unchecked</i>
+                    <i class="material-icons">radio_button_unchecked</i>
+                    <i class="material-icons">radio_button_unchecked</i>
+                    {% elif recipe.skill_level == 2 %}
+                    <i class="material-icons">radio_button_checked</i>
+                    <i class="material-icons">radio_button_checked</i>
+                    <i class="material-icons">radio_button_unchecked</i>
+                    <i class="material-icons">radio_button_unchecked</i>
+                    {% elif recipe.skill_level == 3 %}
+                    <i class="material-icons">radio_button_checked</i>
+                    <i class="material-icons">radio_button_checked</i>
+                    <i class="material-icons">radio_button_checked</i>
+                    <i class="material-icons">radio_button_unchecked</i>
+                    {% elif recipe.skill_level == 4 %}
+                    <i class="material-icons">radio_button_checked</i>
+                    <i class="material-icons">radio_button_checked</i>
+                    <i class="material-icons">radio_button_checked</i>
+                    <i class="material-icons">radio_button_checked</i>
+                    {% endif %}
+                </p>
+            </div>
+            <div class="card-action">
+                <a href="{{url_for('display_recipe', recipe_id=recipe._id)}}"><strong>Bake It!</strong></a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
 
 {% endblock %}

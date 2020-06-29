@@ -25,11 +25,17 @@ def home():
       return render_template("index.html", 
                               admin = True, 
                               logged_in = True, 
-                              message ='You are logged in as ' + session['username'])
+                              message ='You are logged in as ' + session['username'],
+                              recently_added = mongo.db.recipes.find().sort('date_added',-1).limit(3),
+                              cat_list = list(mongo.db.recipe_category.find()))
     return render_template("index.html", 
                             logged_in = True, 
-                            message ='You are logged in as ' + session['username'])
-  return render_template("index.html")
+                            message ='You are logged in as ' + session['username'],
+                            recently_added = mongo.db.recipes.find().sort('date_added',-1).limit(3),
+                            cat_list = list(mongo.db.recipe_category.find()))
+  return render_template("index.html",
+                          recently_added = mongo.db.recipes.find().sort('date_added',-1).limit(3),
+                          cat_list = list(mongo.db.recipe_category.find()))
 
 @app.route("/log_in", methods=['POST', 'GET'])
 def log_in():
