@@ -4,6 +4,7 @@ from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 import bcrypt
 import datetime
+import unittest
 
 from os import path
 if path.exists("env.py"):
