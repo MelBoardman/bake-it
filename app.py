@@ -280,7 +280,7 @@ def update_recipe(recipe_id):
         'ingredients': request.form.getlist('myIngredients[]'),
         'preparation_steps': request.form.getlist('myPrepSteps[]'),
         'skill_level': int(request.form.get('skill')),
-        'date_updated': now,
+        'date_added': now,
         'image': request.form.get('recipe_image')
     })
   return redirect(url_for('get_recipes'))
