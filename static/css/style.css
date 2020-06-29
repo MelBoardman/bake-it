@@ -123,3 +123,8 @@ body {
     margin-top: 20px;
     margin-bottom: 20px;
 }
+
+.ad-image {
+    max-width: 70vw;
+    text-align: center;
+}
