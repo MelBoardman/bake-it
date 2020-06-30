@@ -180,12 +180,14 @@ def get_recipes():
     if member['member_type'] == 'admin':
       return render_template("all_recipes.html", 
                               logged_in = True, 
+                              user = session['username'],
                               admin = True, 
                               cat_list = list(mongo.db.recipe_category.find()), 
                               recipes=mongo.db.recipes.find())
 
     return render_template("all_recipes.html", 
                             logged_in = True, 
+                            user = session['username'],
                             cat_list = list(mongo.db.recipe_category.find()), 
                             recipes=mongo.db.recipes.find())
 
