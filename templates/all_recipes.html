@@ -1,35 +1,58 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="inline-block">
-    <h1 class="head">All Recipes</h1>
-</div>
-<div class="inline-block">
-    <!-- check if user is logged in -->
-    {% if logged_in %}
-    <a class="waves-effect waves-light btn-large" href="{{url_for('add_recipe')}}"><i
-            class="material-icons left">add</i>Add a recipe</a>
-    {% else %}
-    <!-- if not logged display modal with log in, sign up links -->
-    <a class="waves-effect waves-light btn-large modal-trigger" href="#not-logged-in"><i
-            class="material-icons left">add</i>Add a recipe</a>
-
-
-    <div id="not-logged-in" class="modal">
-        <div class="modal-content">
-            <h4>Uh-Oh... You are not logged in</h4>
-            <p>You need to be logged in to add a recipe.</p>
-        </div>
-        <div class="modal-footer">
-            <a href="{{url_for('log_in')}}" class="modal-close waves-effect waves-green btn-flat">Log In</a>
-            <a href="{{url_for('sign_up')}}" class="modal-close waves-effect waves-green btn-flat">Become a member</a>
-            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
-        </div>
+<div class="row">
+    <!-- Page Title All Recipes or Category selected -->
+    <div class="col s12 m12 l12" style="text-align: center;">
+        {% if cat_selected %}
+        <h1 class="head">{{cat_name}}</h1>
+        {%else%}
+        <h1 class="head">All Recipes</h1>
+        {%endif%}
     </div>
-    {% endif %}
 </div>
+<div class="row">
+    <!-- Filter by category drop down -->
+    <div class="col s12 m6" style="text-align: center;">
+        <!-- Dropdown Trigger -->
+        <a class='dropdown-trigger btn waves-effect waves-light btn-large"' href='#' data-target='dropdown1'><i
+                class="material-icons left">filter_list</i>Filter by Category</a>
 
-
+        <!-- Dropdown Structure -->
+        <ul id='dropdown1' class='dropdown-content'>
+            <li><a href="{{url_for('get_recipes')}}">All</a></li>
+            {% for cat in cat_list%}
+            <li><a href="{{url_for('recipes_by_category', cat_name = cat.category_name)}}">{{cat.category_name}}</a>
+            </li>
+            {%endfor%}
+        </ul>
+    </div>
+<!-- User can only add a recipe if they are logged in -->
+    <div class="col s12 m6" style="text-align: center;">
+        <!-- check if user is logged in -->
+        {% if logged_in %}
+        <a class="btn waves-effect waves-light btn-large" href="{{url_for('add_recipe')}}"><i
+                class="material-icons left">add</i>Add a recipe</a>
+        {% else %}
+        <!-- if not logged display modal with log in, sign up links -->
+        <a class="waves-effect waves-light btn-large modal-trigger" href="#not-logged-in"><i
+                class="material-icons left">add</i>Add a recipe</a>
+        <div id="not-logged-in" class="modal">
+            <div class="modal-content">
+                <h4>Uh-Oh... You are not logged in</h4>
+                <p>You need to be logged in to add a recipe.</p>
+            </div>
+            <div class="modal-footer">
+                <a href="{{url_for('log_in')}}" class="modal-close waves-effect waves-green btn-flat">Log In</a>
+                <a href="{{url_for('sign_up')}}" class="modal-close waves-effect waves-green btn-flat">Become a
+                    member</a>
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+<!-- Loop through recipe database to display recipes -->
 <div class="row">
     {% for recipe in recipes %}
     <div class="col s12 m4">
@@ -74,15 +97,16 @@
                 {% if recipe.added_by == user %}
                 <a href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"><strong>Edit</strong></a>
                 <!-- Modal Trigger -->
-                <a href="#{{recipe._id}}" class ="modal-trigger"><strong>Delete</strong></a>
-                
+                <a href="#{{recipe._id}}" class="modal-trigger"><strong>Delete</strong></a>
+
                 <div id="{{recipe._id}}" class="modal">
                     <div class="modal-content">
                         <h4>Delete Recipe</h4>
                         <p>Are you sure you want to delete the recipe {{recipe.recipe_name}}?</p>
                     </div>
                     <div class="modal-footer">
-                        <a href="{{url_for('delete_recipe', recipe_id=recipe._id)}}" class="modal-close waves-effect waves-green btn-flat">Yes</a>
+                        <a href="{{url_for('delete_recipe', recipe_id=recipe._id)}}"
+                            class="modal-close waves-effect waves-green btn-flat">Yes</a>
                         <a href="#!" class="modal-close waves-effect waves-green btn-flat">No</a>
                     </div>
                 </div>

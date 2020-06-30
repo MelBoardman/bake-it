@@ -196,6 +196,36 @@ def get_recipes():
                           cat_list = list(mongo.db.recipe_category.find()), 
                           recipes=mongo.db.recipes.find())  
 
+@app.route("/recipes_by_category/<cat_name>")
+def recipes_by_category(cat_name):
+  if 'username' in session:
+    members = mongo.db.members
+    member = members.find_one({'username' : session['username']})
+    if member['member_type'] == 'admin':
+      return render_template("all_recipes.html",
+                              cat_name = cat_name,
+                              cat_selected = True, 
+                              logged_in = True, 
+                              user = session['username'],
+                              admin = True, 
+                              cat_list = list(mongo.db.recipe_category.find()), 
+                              recipes=mongo.db.recipes.find({"category_name": cat_name}))
+
+    return render_template("all_recipes.html",
+                            cat_name = cat_name,
+                            cat_selected = True, 
+                            logged_in = True, 
+                            user = session['username'],
+                            cat_list = list(mongo.db.recipe_category.find()), 
+                            recipes=mongo.db.recipes.find({"category_name": cat_name}))
+
+  return render_template("all_recipes.html",
+                          cat_name = cat_name,
+                          cat_selected = True,  
+                          logged_in = False, 
+                          cat_list = list(mongo.db.recipe_category.find()), 
+                          recipes=mongo.db.recipes.find({"category_name": cat_name}))
+
 @app.route("/display_recipe/<recipe_id>")
 def display_recipe(recipe_id):
   if 'username' in session:
