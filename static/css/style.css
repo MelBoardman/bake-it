@@ -128,3 +128,8 @@ body {
     max-width: 70vw;
     text-align: center;
 }
+
+.btn {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
