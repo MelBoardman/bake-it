@@ -183,18 +183,18 @@ def get_recipes():
                               user = session['username'],
                               admin = True, 
                               cat_list = list(mongo.db.recipe_category.find()), 
-                              recipes=mongo.db.recipes.find())
+                              recipes=mongo.db.recipes.find().sort('date_added',-1))
 
     return render_template("all_recipes.html", 
                             logged_in = True, 
                             user = session['username'],
                             cat_list = list(mongo.db.recipe_category.find()), 
-                            recipes=mongo.db.recipes.find())
+                            recipes=mongo.db.recipes.find().sort('date_added',-1))
 
   return render_template("all_recipes.html", 
                           logged_in = False, 
                           cat_list = list(mongo.db.recipe_category.find()), 
-                          recipes=mongo.db.recipes.find())  
+                          recipes=mongo.db.recipes.find().sort('date_added',-1)) 
 
 @app.route("/recipes_by_category/<cat_name>")
 def recipes_by_category(cat_name):

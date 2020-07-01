@@ -11,11 +11,12 @@
         {%endif%}
     </div>
 </div>
+<hr>
 <div class="row">
     <!-- Filter by category drop down -->
     <div class="col s12 m6" style="text-align: center;">
         <!-- Dropdown Trigger -->
-        <a class='dropdown-trigger btn waves-effect waves-light btn-large"' href='#' data-target='dropdown1'><i
+        <a class='dropdown-trigger btn waves-effect waves-light btn-large' href='#' data-target='dropdown1'><i
                 class="material-icons left">filter_list</i>Filter by Category</a>
 
         <!-- Dropdown Structure -->
@@ -52,7 +53,8 @@
         {% endif %}
     </div>
 </div>
-<!-- Loop through recipe database to display recipes -->
+<hr>
+<!-- Loop through recipe database to display recipe cards -->
 <div class="row">
     {% for recipe in recipes %}
     <div class="col s12 m4">
@@ -63,11 +65,7 @@
             </div>
             <div class="card-content">
                 <p>Recipe Category:</strong>
-                    {% for cat in cat_list %}
-                    {% if cat['category_name'] == recipe.category_name %}
-                    {{cat['category_name'].capitalize()}}
-                    {% endif %}
-                    {% endfor %}</strong> </p>
+                    {{ recipe.category_name }}</strong> </p>
                 <p>Skill Level:
                     {% if recipe.skill_level == 1 %}
                     <i class="material-icons">radio_button_checked</i>
@@ -93,7 +91,11 @@
                 </p>
             </div>
             <div class="card-action">
+                <!-- Button to lead the user to the recipe -->
                 <a href="{{url_for('display_recipe', recipe_id=recipe._id)}}"><strong>Bake It!</strong></a>
+
+                
+                <!-- if the user is logged in and this recipe was added by them display the edit and delete buttons -->
                 {% if recipe.added_by == user %}
                 <a href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"><strong>Edit</strong></a>
                 <!-- Modal Trigger -->
