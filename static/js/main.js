@@ -14,49 +14,60 @@ var click = false;
 var skillLevelSelected = 0;
 
 skill1.addEventListener('mouseover', (event) => {
-     skill1.innerHTML = "radio_button_checked";
+     if (click == false) {
+          skill1.innerHTML = "radio_button_checked";
+     }
 });
 skill1.addEventListener('mouseout', (event) => {
      if (click == false) {
-     skill1.innerHTML = "radio_button_unchecked";
-     }
+          skill1.innerHTML = "radio_button_unchecked";
+     };
 });
 skill1.addEventListener('click', (event) => {
      click = true;
      skill.value = 1;
      skill1.innerHTML = "radio_button_checked";
+     skill2.innerHTML = "radio_button_unchecked";
+     skill3.innerHTML = "radio_button_unchecked";
+     skill4.innerHTML = "radio_button_unchecked";
 });
 
 
 skill2.addEventListener('mouseover', (event) => {
-     skill1.innerHTML = "radio_button_checked";
-     skill2.innerHTML = "radio_button_checked";
+     if (click == false){
+          skill1.innerHTML = "radio_button_checked";
+          skill2.innerHTML = "radio_button_checked";
+     };
 });
 skill2.addEventListener('mouseout', (event) => {
      if (click == false) {
-     skill1.innerHTML = "radio_button_unchecked";
-     skill2.innerHTML = "radio_button_unchecked";
-     }
+          skill1.innerHTML = "radio_button_unchecked";
+          skill2.innerHTML = "radio_button_unchecked";
+     };
 });
 skill2.addEventListener('click', (event) => {
      click = true;
      skill.value = 2;
      skill1.innerHTML = "radio_button_checked";
      skill2.innerHTML = "radio_button_checked";
+     skill3.innerHTML = "radio_button_unchecked";
+     skill4.innerHTML = "radio_button_unchecked";
 
 });
 
 skill3.addEventListener('mouseover', (event) => {
-     skill1.innerHTML = "radio_button_checked";
-     skill2.innerHTML = "radio_button_checked";
-     skill3.innerHTML = "radio_button_checked";
+     if (click == false){
+          skill1.innerHTML = "radio_button_checked";
+          skill2.innerHTML = "radio_button_checked";
+          skill3.innerHTML = "radio_button_checked";
+     };
 });
 skill3.addEventListener('mouseout', (event) => {
      if (click == false) {
           skill1.innerHTML = "radio_button_unchecked";
           skill2.innerHTML = "radio_button_unchecked";
           skill3.innerHTML = "radio_button_unchecked";
-     }
+     };
 });
 skill3.addEventListener('click', (event) => {
      click = true;
@@ -64,15 +75,18 @@ skill3.addEventListener('click', (event) => {
      skill1.innerHTML = "radio_button_checked";
      skill2.innerHTML = "radio_button_checked";
      skill3.innerHTML = "radio_button_checked";
+     skill4.innerHTML = "radio_button_unchecked";
 });
 
 
 
 skill4.addEventListener('mouseover', (event) => {
-     skill1.innerHTML = "radio_button_checked";
-     skill2.innerHTML = "radio_button_checked";
-     skill3.innerHTML = "radio_button_checked"; 
-     skill4.innerHTML = "radio_button_checked";
+     if (click == false) {
+          skill1.innerHTML = "radio_button_checked";
+          skill2.innerHTML = "radio_button_checked";
+          skill3.innerHTML = "radio_button_checked"; 
+          skill4.innerHTML = "radio_button_checked";
+     };
 });
 skill4.addEventListener('mouseout', (event) => {
      if (click == false) {

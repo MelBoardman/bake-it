@@ -48,7 +48,7 @@
         <div class="input-field col s12">
             <i class="material-icons prefix">assignment</i>
             <select id="category" name="category_name">
-                <option value="{{recipe.category_name}}" >
+                <option value="{{recipe.category_name}}">
                     {{recipe.category_name}}</option>
                 {% for cat in categories %}
                 <option value="{{cat.category_name}}">{{cat.category_name}}</option>
@@ -65,11 +65,29 @@
             <input id="skill" type="number" name="skill" value="{{recipe.skill_level}}" style="visibility: hidden;" />
 
             <div class="skill_option">
-                <i id="skill_1" class="material-icons">radio_button_unchecked</i>
+                {% if recipe.skill_level == 1 %}
+                <i id="skill_1" class="material-icons">radio_button_checked</i>
                 <i id="skill_2" class="material-icons">radio_button_unchecked</i>
                 <i id="skill_3" class="material-icons">radio_button_unchecked</i>
+                <i class="material-icons">radio_button_unchecked</i>
+                {% elif recipe.skill_level == 2 %}
+                <i id="skill_1" class="material-icons">radio_button_checked</i>
+                <i id="skill_2" class="material-icons">radio_button_checked</i>
+                <i id="skill_3" class="material-icons">radio_button_unchecked</i>
                 <i id="skill_4" class="material-icons">radio_button_unchecked</i>
+                {% elif recipe.skill_level == 3 %}
+                <i id="skill_1" class="material-icons">radio_button_checked</i>
+                <i id="skill_2" class="material-icons">radio_button_checked</i>
+                <i id="skill_3" class="material-icons">radio_button_checked</i>
+                <i id="skill_4" class="material-icons">radio_button_unchecked</i>
+                {% elif recipe.skill_level == 4 %}
+                <i id="skill_1" class="material-icons">radio_button_checked</i>
+                <i id="skill_2" class="material-icons">radio_button_checked</i>
+                <i id="skill_3" class="material-icons">radio_button_checked</i>
+                <i id="skill_4" class="material-icons">radio_button_checked</i>
+                {% endif %}
             </div>
+
         </div>
         <hr>
 
