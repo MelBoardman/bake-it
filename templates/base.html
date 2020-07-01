@@ -11,9 +11,10 @@
 </head>
 
 <body>
-    {% if logged_in: %}
-    {% if admin: %}
-    <header class="teal">
+    <header>
+        {% if logged_in: %}
+        {% if admin: %}
+
         <nav>
             <div class="nav-wrapper">
                 <div class="nav-wrapper">
@@ -33,9 +34,9 @@
             <li><a href="{{url_for('my_recipes', username = session['username'])}}">My Recipes</a></li>
             <li><a href="{{url_for('admin_page', username = session['username'])}}">Admin</a></li>
         </ul>
-    </header>
-    {% else %}
-    <header>
+
+        {% else %}
+
         <nav>
             <div class="nav-wrapper teal">
                 <div class="nav-wrapper teal">
@@ -53,11 +54,11 @@
             <li><a href="{{url_for('get_recipes')}}">Recipes</a></li>
             <li><a href="{{url_for('my_recipes', username = session['username'])}}">My Recipes</a></li>
         </ul>
-    </header>
-    {% endif %}
 
-    {% else %}
-    <header>
+        {% endif %}
+
+        {% else %}
+
         <nav>
             <div class="nav-wrapper">
                 <div class="nav-wrapper">
@@ -75,10 +76,10 @@
             <li><a href="{{url_for('get_recipes')}}">Recipes</a></li>
             <li><a href="{{url_for('log_in')}}">Log In</a></li>
         </ul>
-
+        {% endif %}
     </header>
     <main>
-        {% endif %}
+
 
         {% block content %}
         {% endblock %}
@@ -94,8 +95,9 @@
             <div class="col l4 offset-l2 s12">
                 <h5 class="white-text">Links</h5>
                 <ul>
-                    <li><a class="grey-text text-lighten-3" href="https://www.pyrexuk.com/collections/bakewareHome" target="_blank">Pyrex Bakeware</a></li>
-                   
+                    <li><a class="grey-text text-lighten-3" href="https://www.pyrexuk.com/collections/bakewareHome"
+                            target="_blank">Pyrex Bakeware</a></li>
+
 
                 </ul>
             </div>
@@ -121,7 +123,7 @@
             var elems = document.querySelectorAll('.dropdown-trigger');
             var instances = M.Dropdown.init(elems);
         });
-        
+
     </script>
 </body>
 

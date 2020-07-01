@@ -41,24 +41,21 @@ def log_in():
   if request.method == 'POST':
     members = mongo.db.members
     login_member = members.find_one({'username' : request.form['username']})
+    hash_p = bcrypt.hashpw(request.form['password'].encode('utf-8'), login_member['password'].encode('utf-8'))
     if login_member:
-
-      if bcrypt.hashpw(request.form['password'].encode('utf-8'), login_member['password'].encode('utf-8')) == login_member['password'].encode('utf-8'):
-        # set session user id
+      if hash_p == login_member['password'].encode('utf-8'):
+        # log in success set session user id
         session['username'] = request.form['username']
-        if login_member['member_type'] == 'admin':
-          return redirect(url_for('home', 
+        admin_status = bool(login_member['member_type'] == 'admin')
+        return redirect(url_for('home', 
                                   username =session['username'], 
                                   logged_in = True, 
-                                  admin = True))
-        
-        return redirect(url_for('home', 
-                                username =session['username'], 
-                                logged_in = True)) 
-    
+                                  admin = admin_status))  
+    # log in fail
     return render_template("log_in.html", 
                             log_on_fail = True, 
                             message = 'Invalid username/password combination')
+  # route to login page
   return render_template("log_in.html")
 
 # sign up page used to register new member
