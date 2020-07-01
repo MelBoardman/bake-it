@@ -104,7 +104,8 @@ def my_recipes(username):
                           logged_in = logged_in_status, 
                           username =user, 
                           cat_list = list(mongo.db.recipe_category.find()), 
-                          recipes=mongo.db.recipes.find({"added_by": session['username']}).sort('date_added',-1))
+                          recipes=mongo.db.recipes.find({"added_by": session['username']}).sort('date_added',-1),
+                          no_of_recipes=mongo.db.recipes.count({"added_by": session['username']}))
 
 @app.route("/admin_page/<username>")
 def admin_page(username):
@@ -207,7 +208,8 @@ def recipes_by_category(cat_name):
                               user = user,
                               admin = admin_status, 
                               cat_list = list(mongo.db.recipe_category.find()), 
-                              recipes=mongo.db.recipes.find({"category_name": cat_name}))
+                              recipes=mongo.db.recipes.find({"category_name": cat_name}),
+                              no_of_recipes_cat=mongo.db.recipes.count({"category_name": cat_name}))
 
 # Filter Recipes by category
 @app.route("/my_recipes_by_category/<cat_name>")
@@ -229,7 +231,8 @@ def my_recipes_by_category(cat_name):
                               user = user,
                               admin = admin_status, 
                               cat_list = list(mongo.db.recipe_category.find()), 
-                              recipes=mongo.db.recipes.find({"added_by": user,"category_name": cat_name}))
+                              recipes=mongo.db.recipes.find({"added_by": user,"category_name": cat_name}),
+                              no_of_my_recipes_cat=mongo.db.recipes.count({"added_by": user,"category_name": cat_name}))
 
 @app.route("/display_recipe/<recipe_id>")
 def display_recipe(recipe_id):

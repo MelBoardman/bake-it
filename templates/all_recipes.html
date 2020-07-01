@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
-
 <div class="row">
+
     {%if my_reps%}
     <!-- Page Title All Recipes or Category selected -->
     <div class="col s12 m12 l12" style="text-align: center;">
@@ -47,7 +47,8 @@
             {%endif%}
         </ul>
     </div>
-  
+
+
 <!-- User can only add a recipe if they are logged in -->
     <div class="col s12 m6" style="text-align: center;">
         <!-- check if user is logged in -->
@@ -73,6 +74,17 @@
         {% endif %}
     </div>
 </div>
+
+{%if no_of_recipes == 0%}
+<h4 style = "text-align: center;">There are no recipes to display.</h4>
+{%elif no_of_recipes_cat ==0%}
+<h4 style = "text-align: center;">There are currently no recipes to display in this category.</h4>
+{%elif no_of_my_recipes == 0%}
+<h4 style = "text-align: center;">You have not yet added any recipes.</h4>
+{%elif no_of_my_recipes_cat == 0%}
+<h4 style = "text-align: center;">You have not yet added any recipes to this category.</h4>
+{%endif%}
+
 
 <!-- Loop through recipe database to display recipe cards -->
 <div class="row">
@@ -116,7 +128,7 @@
 
                 
                 <!-- if the user is logged in and this recipe was added by them display the edit and delete buttons -->
-                {% if recipe.added_by == user %}
+                {% if recipe.added_by == session['username'] %}
                 <a href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"><strong>Edit</strong></a>
                 <!-- Modal Trigger -->
                 <a href="#{{recipe._id}}" class="modal-trigger"><strong>Delete</strong></a>
