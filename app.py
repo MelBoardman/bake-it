@@ -19,25 +19,22 @@ mongo = PyMongo(app)
 @app.route("/")
 @app.route("/home")
 def home():
-  if 'username' in session:
+  logged_in_status = bool('username' in session)
+  if logged_in_status:
     members = mongo.db.members
-    member = members.find_one({'username' : session['username']})
-    if member['member_type'] == 'admin':
-      return render_template("index.html", 
-                              admin = True, 
-                              logged_in = True, 
-                              message ='You are logged in as ' + session['username'],
+    user = session['username']
+    member = members.find_one({'username' : user})
+    admin_status = bool(member['member_type'] == 'admin')
+  else:
+    admin_status = False
+    user = ""
+  return render_template("index.html", 
+                              admin = admin_status, 
+                              logged_in = logged_in_status, 
+                              message ='You are logged in as ' + user,
                               recently_added = mongo.db.recipes.find().sort('date_added',-1).limit(3),
                               cat_list = list(mongo.db.recipe_category.find()))
-    return render_template("index.html", 
-                            logged_in = True, 
-                            message ='You are logged in as ' + session['username'],
-                            recently_added = mongo.db.recipes.find().sort('date_added',-1).limit(3),
-                            cat_list = list(mongo.db.recipe_category.find()))
-  return render_template("index.html",
-                          recently_added = mongo.db.recipes.find().sort('date_added',-1).limit(3),
-                          cat_list = list(mongo.db.recipe_category.find()))
-
+   
 @app.route("/log_in", methods=['POST', 'GET'])
 def log_in():
   if request.method == 'POST':
@@ -49,12 +46,12 @@ def log_in():
         # set session user id
         session['username'] = request.form['username']
         if login_member['member_type'] == 'admin':
-          return redirect(url_for('admin_page', 
+          return redirect(url_for('home', 
                                   username =session['username'], 
                                   logged_in = True, 
                                   admin = True))
         
-        return redirect(url_for('my_recipes', 
+        return redirect(url_for('home', 
                                 username =session['username'], 
                                 logged_in = True)) 
     
