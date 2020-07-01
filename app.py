@@ -34,7 +34,8 @@ def home():
                               message ='You are logged in as ' + user,
                               recently_added = mongo.db.recipes.find().sort('date_added',-1).limit(3),
                               cat_list = list(mongo.db.recipe_category.find()))
-   
+
+# Log in page
 @app.route("/log_in", methods=['POST', 'GET'])
 def log_in():
   if request.method == 'POST':
@@ -87,6 +88,7 @@ def sign_up():
 
   return render_template("sign_up.html")
 
+# route to all_recipes.html filtered on to recipes added by the user logged in.
 @app.route("/my_recipes/<username>")
 def my_recipes(username):
   logged_in_status = bool('username' in session)
@@ -107,24 +109,58 @@ def my_recipes(username):
                           recipes=mongo.db.recipes.find({"added_by": session['username']}).sort('date_added',-1),
                           no_of_recipes=mongo.db.recipes.count({"added_by": session['username']}))
 
+# Admin page only accessible by admin user
 @app.route("/admin_page/<username>")
 def admin_page(username):
-  return render_template("admin.html", 
+  logged_in_status = bool('username' in session)
+  if logged_in_status:
+    members = mongo.db.members
+    user = session['username']
+    member = members.find_one({'username' : user})
+    if member['member_type'] == 'admin':
+      return render_template("admin.html", 
                           admin = True, 
-                          logged_in = True, 
+                          logged_in = logged_in_status, 
                           username =session['username'], 
                           categories = (mongo.db.recipe_category.find()), 
                           recipes=mongo.db.recipes.find())
-
+    else:
+      admin_status = False
+      user = ""
+# if not an admin redirect to index.html
+  return render_template("index.html", 
+                            admin = admin_status, 
+                            logged_in = logged_in_status, 
+                            message ='You are logged in as ' + user,
+                            recently_added = mongo.db.recipes.find().sort('date_added',-1).limit(3),
+                            cat_list = list(mongo.db.recipe_category.find()))
+  
+# Add category page is only accessible by admin user
 @app.route("/add_category")
 def add_category():
-  return render_template("add_category.html", 
+  logged_in_status = bool('username' in session)
+  if logged_in_status:
+    members = mongo.db.members
+    user = session['username']
+    member = members.find_one({'username' : user})
+    if member['member_type'] == 'admin':
+      return render_template("add_category.html", 
                           admin = True, 
                           logged_in = True, 
                           username =session['username'], 
                           categories = (mongo.db.recipe_category.find()))
+    else:
+      admin_status = False
+      user = ""
+# if not an admin redirect to index.html
+  return render_template("index.html", 
+                            admin = admin_status, 
+                            logged_in = logged_in_status, 
+                            message ='You are logged in as ' + user,
+                            recently_added = mongo.db.recipes.find().sort('date_added',-1).limit(3),
+                            cat_list = list(mongo.db.recipe_category.find()))
 
-@app.route("/insert_category", methods=['POST', 'GET'])
+@app.route("/insert_category", methods=['POST'])
 def insert_category():
   categories = mongo.db.recipe_category
   categories.insert_one(
@@ -140,14 +176,31 @@ def insert_category():
                   logged_in = True, 
                   admin = True))
 
+# Add category page is only accessible by admin user
 @app.route("/edit_category/<category_id>")
 def edit_category(category_id):
-  return render_template("edit_category.html", 
+  logged_in_status = bool('username' in session)
+  if logged_in_status:
+    members = mongo.db.members
+    user = session['username']
+    member = members.find_one({'username' : user})
+    if member['member_type'] == 'admin':
+      return render_template("edit_category.html", 
                           admin = True, 
-                          logged_in = True, 
+                          logged_in = logged_in_status, 
                           category = mongo.db.recipe_category.find_one({"_id": ObjectId(category_id)}))
+    else:
+      admin_status = False
+      user = ""
+# if not an admin redirect to index.html
+  return render_template("index.html", 
+                            admin = admin_status, 
+                            logged_in = logged_in_status, 
+                            message ='You are logged in as ' + user,
+                            recently_added = mongo.db.recipes.find().sort('date_added',-1).limit(3),
+                            cat_list = list(mongo.db.recipe_category.find()))
 
-@app.route("/update_category/<category_id>", methods=['POST', 'GET'])
+@app.route("/update_category/<category_id>", methods=['POST'])
 def update_category(category_id):
   categories = mongo.db.recipe_category
   categories.update({'_id': ObjectId(category_id)},
@@ -211,7 +264,7 @@ def recipes_by_category(cat_name):
                               recipes=mongo.db.recipes.find({"category_name": cat_name}),
                               no_of_recipes_cat=mongo.db.recipes.count({"category_name": cat_name}))
 
-# Filter Recipes by category
+# Filter My Recipes by category
 @app.route("/my_recipes_by_category/<cat_name>")
 def my_recipes_by_category(cat_name):
   logged_in_status = bool('username' in session)
@@ -234,6 +287,7 @@ def my_recipes_by_category(cat_name):
                               recipes=mongo.db.recipes.find({"added_by": user,"category_name": cat_name}),
                               no_of_my_recipes_cat=mongo.db.recipes.count({"added_by": user,"category_name": cat_name}))
 
+# Route to recipe.html to display all recipe details and tailored ad.
 @app.route("/display_recipe/<recipe_id>")
 def display_recipe(recipe_id):
   logged_in_status = bool('username' in session)
@@ -254,17 +308,28 @@ def display_recipe(recipe_id):
 
 @app.route("/add_recipe")
 def add_recipe():
-  members = mongo.db.members
-  member = members.find_one({'username' : session['username']})
-  if member['member_type'] == 'admin':
+  logged_in_status = bool('username' in session)
+  if logged_in_status:
+    members = mongo.db.members
+    user = session['username']
+    member = members.find_one({'username' : user})
+    admin_status = bool(member['member_type'] == 'admin')
     return render_template("add_recipe.html", 
-                            admin = True, logged_in = True, 
+                            admin = admin_status, 
+                            logged_in = True, 
                             categories = mongo.db.recipe_category.find())
-
-  return render_template("add_recipe.html", 
-                          logged_in = True,  
-                          categories = mongo.db.recipe_category.find())
-
+  else:
+    admin_status = False
+    user = ""
+# if not an logged in redirect to index.html
+    return render_template("index.html", 
+                            admin = admin_status, 
+                            logged_in = logged_in_status, 
+                            message ='You are logged in as ' + user,
+                            recently_added = mongo.db.recipes.find().sort('date_added',-1).limit(3),
+                            cat_list = list(mongo.db.recipe_category.find()))
+ 
+# Route to insert recipe into the database
 @app.route("/insert_recipe", methods=['POST'])
 def insert_recipe():
   now = datetime.datetime.now()
@@ -287,22 +352,27 @@ def insert_recipe():
 
 @app.route('/edit_recipe/<recipe_id>')
 def edit_recipe(recipe_id):
-  members = mongo.db.members
-  member = members.find_one({'username' : session['username']})
-  if member['member_type'] == 'admin':
+  logged_in_status = bool('username' in session)
+  if logged_in_status:
+    members = mongo.db.members
+    user = session['username']
+    member = members.find_one({'username' : user})
+    admin_status = bool(member['member_type'] == 'admin')
     return render_template("edit_recipe.html", 
-                            admin = True, 
-                            logged_in = True, 
+                            admin = admin_status, 
+                            logged_in = logged_in_status, 
                             cat_list = list(mongo.db.recipe_category.find()),
                             categories = mongo.db.recipe_category.find(),
                             recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)}))
+  # if not an logged in redirect to index.html
+  return render_template("index.html", 
+                            admin = admin_status, 
+                            logged_in = logged_in_status, 
+                            message ='You are logged in as ' + user,
+                            recently_added = mongo.db.recipes.find().sort('date_added',-1).limit(3),
+                            cat_list = list(mongo.db.recipe_category.find()))
 
-  return render_template("edit_recipe.html", 
-                          logged_in = True, 
-                          cat_list = list(mongo.db.recipe_category.find()),
-                          categories = mongo.db.recipe_category.find(),
-                          recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)}))
-
+# route to update recipe in the database
 @app.route('/update_recipe/<recipe_id>', methods=["POST"])
 def update_recipe(recipe_id):
   now = datetime.datetime.now()
@@ -323,6 +393,7 @@ def update_recipe(recipe_id):
     })
   return redirect(url_for('get_recipes'))
 
+# route to delete recipe in the database
 @app.route('/delete_recipe/<recipe_id>')
 def delete_recipe(recipe_id):
     mongo.db.recipes.remove({'_id': ObjectId(recipe_id)})
