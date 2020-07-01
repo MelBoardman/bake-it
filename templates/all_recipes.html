@@ -92,7 +92,7 @@
     <div class="col s12 m4">
         <div class="card medium">
             <div class="card-image">
-                <img src="{{recipe.image}}">
+                <a href ="{{url_for('display_recipe', recipe_id=recipe._id)}}"><img src="{{recipe.image}}"></a>
                 <span class="card-title"><strong>{{recipe.recipe_name}}</strong></span>
             </div>
             <div class="card-content">
