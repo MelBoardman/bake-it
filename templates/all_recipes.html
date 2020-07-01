@@ -2,6 +2,16 @@
 {% block content %}
 
 <div class="row">
+    {%if my_reps%}
+    <!-- Page Title All Recipes or Category selected -->
+    <div class="col s12 m12 l12" style="text-align: center;">
+        {% if cat_selected %}
+        <h1 class="head">My Recipes: {{cat_name}}</h1>
+        {%else%}
+        <h1 class="head">My Recipes</h1>
+        {%endif%}
+    </div>
+    {%else%}
     <!-- Page Title All Recipes or Category selected -->
     <div class="col s12 m12 l12" style="text-align: center;">
         {% if cat_selected %}
@@ -10,6 +20,7 @@
         <h1 class="head">All Recipes</h1>
         {%endif%}
     </div>
+    {%endif%}
 </div>
 
 <div class="row">
@@ -21,11 +32,19 @@
 
         <!-- Dropdown Structure -->
         <ul id='dropdown1' class='dropdown-content'>
+            {%if my_reps%}
+            <li><a href="{{url_for('my_recipes', username = session['username'])}}">All</a></li>
+            {% for cat in cat_list%}
+            <li><a href="{{url_for('my_recipes_by_category', cat_name = cat.category_name)}}">{{cat.category_name}}</a>
+            </li>
+            {%endfor%}
+            {%else%}
             <li><a href="{{url_for('get_recipes')}}">All</a></li>
             {% for cat in cat_list%}
             <li><a href="{{url_for('recipes_by_category', cat_name = cat.category_name)}}">{{cat.category_name}}</a>
             </li>
             {%endfor%}
+            {%endif%}
         </ul>
     </div>
   
