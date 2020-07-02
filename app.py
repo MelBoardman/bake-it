@@ -104,7 +104,7 @@ def my_recipes(username):
                           username =user, 
                           cat_list = list(mongo.db.recipe_category.find()), 
                           recipes=mongo.db.recipes.find({"added_by": session['username']}).sort('date_added',-1),
-                          no_of_recipes=mongo.db.recipes.count({"added_by": session['username']}))
+                          no_of_my_recipes=mongo.db.recipes.count({"added_by": session['username']}))
 
 # Admin page only accessible by admin user
 @app.route("/admin_page/<username>")
