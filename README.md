@@ -133,15 +133,14 @@ Click here for [Database Schema](./docs/database_schema.pdf).
 - Add feature to Admin Tools: allow Admins to change other users member_type to Admin. 
 
 ## Technologies Used
-***************************
 
-HTML, CSS, JS, PYTHON - FLASK, MONGO DB, MATERIALIZE 1.0
-
-In this section, you should mention all of the languages, frameworks, libraries, and any other tools that you have used to construct this project. For each, provide its name, a link to its official site and a short sentence of why it was used.
-
-- [JQuery](https://jquery.com)
-    - The project uses **JQuery** to simplify DOM manipulation.
-
+- HTML - https://www.w3schools.com/whatis/whatis_html.asp
+- CSS, 
+- JS, 
+- JQUERY, 
+- PYTHON - FLASK, 
+- MONGO DB - https://cloud.mongodb.com 
+- MATERIALIZE 1.0 - https://materializecss.com/about.html
 
 ## Testing
 
@@ -160,19 +159,24 @@ I also sent links to the site to many family and friends and feel I have complet
 
 ## Deployment
 
-I have developed this project in VSCode. I have used a virtual environment. The env.py file holds the environment variables.
+I have developed this project in VSCode. In order to set up a virtual environment I followed this: https://docs.python.org/3/library/venv.html
 
-I used heroKu to deploy the site. 
-When the site was deployed I added the environment variables contained in the env.py file to the config vars in the settings page on the HeroKu site. I have set this up so that when I run locally debug is set to True and set to False on Heroku.  
+To deploy Bake-it to Heroku:
 
-This section should describe the process you went through to deploy the project to a hosting platform (e.g. GitHub Pages or Heroku).
-
-In particular, you should provide all details of the differences between the deployed version and the development version, if any, including:
-- Different values for environment variables (Heroku Config Vars)?
-- Different configuration files?
-- Separate git branch?
-
-In addition, if it is not obvious, you should also describe how to run your code locally.
+-   A requirements.txt is needed. This is created by using the following command in the terminal : pip freeze > requirements.txt.
+-   A Procfile is also required. This created by using the following command in the terminal: echo web: python app.py > Procfile
+-   Ensure the above files are commited and pushed to the repository in git hub. (git add .)(git commit -m "....")(git push)
+-   Next the app must be created on the heroku website: https://dashboard.heroku.com/ by selecting New on the dashboard. Then create a name: bake-it and set the region to Europe.
+-   On the HeroKu dashboard select the app (bake-it) selct 'deploy', 'deployment method' and select github. 
+-   Link the (bake-it) app to the correct repository in github. 
+-   I have developed this project in VSCode. I have used a virtual environment. The env.py file holds the environment variables. This does not get commited to github and therefore these variables must be added to the Heroku config vars.
+-   Select 'settings' then 'reveal Config Vars' then set the config vars as follows:
+-       Key: DEBUG  value: False
+-       Key: IP     value:  0.0.0.0
+-       Key: MONGO_URI value: mongodb+srv://.......................
+-       Key:PORT    value:5000
+-       Key:SECRET_KEY  value: its a secret
+-   From the Deploy tab you can select 'deploy branch' ensuring the master branch is selected, from the manual deploy section or it wait for the next git push when it will automatically be deployed.
 
 
 ## Credits
