@@ -94,8 +94,6 @@
         <!-- ingredients -->
 
         <div class="input-field" id="dynamicIngredients">
-            <i class="material-icons prefix">assignment</i>
-            <label>Ingredients</label>
             {% for ingredient in recipe.ingredients%}
             <i class='material-icons prefix'>assignment</i><label></label><input type='text' name='myIngredients[]'
                 value="{{ingredient}}">
