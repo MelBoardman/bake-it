@@ -377,7 +377,8 @@ def update_recipe(recipe_id):
   recipes.update( {'_id': ObjectId(recipe_id)},
     {
         'recipe_name': request.form.get('recipe_name'),
-        'added_by': session['username'],
+        'updated_by': session['username'],
+        'added_by': request.form.get('added_by'),
         'description': request.form.get('recipe_description'),
         'category_name': request.form.get('category_name'),
         'prep_time': request.form.get('prep_time'),
