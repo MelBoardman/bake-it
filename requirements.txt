@@ -18,6 +18,7 @@ pycparser==2.20
 pylint==2.5.2
 pymongo==3.10.1
 six==1.15.0
+testcase==0.1.0
 toml==0.10.1
 Werkzeug==1.0.1
 wrapt==1.12.1

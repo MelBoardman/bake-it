@@ -69,43 +69,71 @@ I decided I required 3 collections in my database.
 
 2. recipe_category - This includes the category name. i.e. Cupcakes and the product information that will be advertised when this recipe category is included in a recipe. 
 
-3. recipes - This includes all the information for the recipe, Name, description, pre and cook times
+3. recipes - This includes all the information for the recipe, Name, description, prep and cook times, skill level, ingredients, preparation steps and a link to an image. I also included a data added and date updated. This was to allow the recipes to be displayed so that the most recently added is shown first.  
 
-Click here for [Database Schema](./docs/MS3Wireframes.pdf).
+Click here for [Database Schema](./docs/database_schema.pdf).
 
 
 
 ## Features
 
+### Navbar:  Materialize nav bar
+-    The Nav bar has links to the various pages and the options are modified dependant on if someone is logged in and if they are an admin. Once a member is logged on the 'Log in' link is changed to 'My Recipes'. If an Admin is logged in the Admin link is also added. 
+
 ### Homepage: index.html
 -   Description on the homepage to allow new visitors to quickly understand the purpose of the site.
 -   Link to a Sign up page that allows new visitors to be easily become members.
 -   Button link to Log In page so members can log in
+-   If a user is logged in the Text is altered slightly and there is a message "You are logged in as..."
 -   Button link to All recipes to allow all users to access all the recipes from one click from the Homepage. 
 -   Display the latest recipes that have been added so that returning visitors can quickly see and any new exciting recipes.
 
-### Sign Up Page:
+### Sign Up Page: sign_up.html
 -   Simple Sign up procedure. Using only a Username and password. i.e. limiting personal data and encourage people to sign up.
 -   Link to log in page if you realise you are an existing user.
-*********************************************
-In this section, you should go over the different parts of your project, and describe each in a sentence or so.
- 
-### Existing Features
-*************************************************
-- Feature 1 - allows users X to achieve Y, by having them fill out Z
-- ...
 
-For some/all of your features, you may choose to reference the specific project files that implement them, although this is entirely optional.
+### Log In Page: log_in.html
+-   log in page takes the username and password. When a user is successfully logged in it returns them to the homepage.
 
-In addition, you may also use this section to discuss plans for additional features to be implemented in the future:
+### Recipes page: all_recipes.html
+- Displays all recipes on cards with most recent first. 
+- Button to filter by recipe category.
+- Button to add a new recipe. 
+
+### My Recipes page: all_recipes.html
+- This uses the same html page as all recipes and the functionality is the same. However only recipes added by the user that is currently logged in are displayed. This page is only accessible when there is a user in session.
+
+### Recipe page: recipe.html
+-   If the image or the 'bake it' button on a recipe card is selected from any page the user is taken to the recipe page where the recipe is displayed.
+
+### Add Recipe page: add_recipe.html
+-   The add a recipe button can be pressed in the recipes or my recipes pages. This brings the user to the add a recipe page that contains the form that collects the data for the database. 
+
+### Edit Recipe page: edit_recipe.html
+-   An Admin can edit all recipes. A member can edit recipes that they have added. The edit option can be found on the recipe card on any page that the card is displayed on.
+-   Clicking the EDIT button takes the user to the edit recipe page where the information for the recipe is displayed as it was in the entry form. All the current data is populated and can be edited. 
+
+### Admin page: admin.html
+-   If an admin user is logged in there is an additional link on the nav bar for the Admin page. 
+-   The admin page displays the recipe categories on cards. They show the category name and the name of the product that is advertised in the recipes that that category is used.
+- there is also a button to add new categories.
+
+### Add a recipe category: add_category.html
+-   When Add a category button is selected from the Admin page. The Add a recipe category form is displayed. The Admin can enter the category name and the product information they wish to advertise when this category is selected. 
+
+### Edit a category: edit_category.html
+- This can be accessed by selecting the edit button on the category cards in the Admin page. 
+- This takes the admin to the same form as shown in the add a category page. The form is populated and all items can be edited.
+
 
 ### Features Left to Implement
-************************************
+
 - Add a filter to allow recipes to be filtered by skill level.
 - Add a link to 'Bake its favorite Pyrex products' and a page that lists them all using the ad data populated in the categories database. 
 - Add feature to Admin Tools: allow Admins to change other users member_type to Admin. 
 
 ## Technologies Used
+***************************
 
 HTML, CSS, JS, PYTHON - FLASK, MONGO DB, MATERIALIZE 1.0
 
@@ -117,27 +145,25 @@ In this section, you should mention all of the languages, frameworks, libraries,
 
 ## Testing
 
-Click here for [Database Schema](./docs/manual_testing.pdf).
+For this project I completed a lot of manual testing and cross checking what had been added to the database in Mongo throughout the development of each feature. I then completed some comprehensive manual testing laid out in the following spreadsheet:
 
-In this section, you need to convince the assessor that you have conducted enough testing to legitimately believe that the site works well. Essentially, in this part you will want to go over all of your user stories from the UX section and ensure that they all work as intended, with the project providing an easy and straightforward way for the users to achieve their goals.
+Click here for [Testing Spreadsheet](./docs/manual_testing.pdf).
 
-Whenever it is feasible, prefer to automate your tests, and if you've done so, provide a brief explanation of your approach, link to the test file(s) and explain how to run them.
+As I have used the Materialize framework there is limited bespoke JS that in this project and this has been thoroughly tested manually therefore I have not completed any Jasmine testing.
 
-For any scenarios that have not been automated, test the user stories manually and provide as much detail as is relevant. A particularly useful form for describing your testing process is via scenarios, such as:
+I discussed python unit testing with my mentor and I managed to create a few simple tests in the test.py. However this is not complete and I hope to gain more experience in this in the next module. 
 
-1. Contact form:
-    1. Go to the "Contact Us" page
-    2. Try to submit the empty form and verify that an error message about the required fields appears
-    3. Try to submit the form with an invalid email address and verify that a relevant error message appears
-    4. Try to submit the form with all inputs valid and verify that a success message appears.
+Throughout development I have also be checking each feature with chrome developer tools looking at different screen sizes and using my own devices. 
 
-In addition, you should mention in this section how your project looks and works on different browsers and screen sizes.
+I also sent links to the site to many family and friends and feel I have completed enough validation to believe the site functions as intended. Aside from a couple of issues in IE highlighted in the test spreadsheet.
 
-You should also mention in this section any interesting bugs or problems you discovered during your testing, even if you haven't addressed them yet.
-
-If this section grows too long, you may want to split it off into a separate file and link to it from here.
 
 ## Deployment
+
+I have developed this project in VSCode. I have used a virtual environment. The env.py file holds the environment variables.
+
+I used heroKu to deploy the site. 
+When the site was deployed I added the environment variables contained in the env.py file to the config vars in the settings page on the HeroKu site. I have set this up so that when I run locally debug is set to True and set to False on Heroku.  
 
 This section should describe the process you went through to deploy the project to a hosting platform (e.g. GitHub Pages or Heroku).
 
@@ -162,9 +188,6 @@ For the 'Add recipe' page it was necessary to dynamically add form fields. I was
 https://www.pyrexuk.com/collections/bakeware
 
 
-### Acknowledgements
-
-- I received inspiration for this project from X
 
 ### Acknowledgements
 
@@ -178,11 +201,3 @@ My Mentor briefly talked me thought unit testing and i found this: https://code-
 I would also like to thank my Mentor: Ignatius Ukwuoma for the support.
 
 
-
-
-
-
-
-
-
-## Attributes
